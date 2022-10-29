@@ -1,6 +1,7 @@
-#include "main.h"
+//#include "main.h"
 
 #define SLEW_RATE 10
+
 
 int lPower = 0;
 int rPower = 0;

@@ -86,10 +86,14 @@ void opcontrol() {
 	prime();
 	runRollerTask();
 	runCataTask();
+	int lPower = 0;
+	int rPower = 0;
 
 	while (true) {
 		//move drivebase
-		calculatePower();
+		lPower = master.get_analog(E_CONTROLLER_ANALOG_LEFT_Y) - master.pros::c::controller_get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
+		rPower = master.get_analog(E_CONTROLLER_ANALOG_LEFT_Y) + master.pros::c::controller_get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
+
 		leftDrive.move(lPower);
 		rightDrive.move(rPower);
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
