@@ -17,7 +17,8 @@ extern pros::Motor roller;
 
 //sensors
 extern pros::Optical optRoller;
-extern pros::ADIAnalogIn cataPrime;
+extern pros::IMU imu;
+extern pros::ADIDigitalIn cataPrime;
 
 //controllers
 extern pros::Controller master;
