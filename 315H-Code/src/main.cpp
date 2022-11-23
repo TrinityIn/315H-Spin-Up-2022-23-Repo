@@ -91,8 +91,8 @@ void opcontrol() {
 
 	while (true) {
 		//move drivebase
-		lPower = master.get_analog(E_CONTROLLER_ANALOG_LEFT_Y) - master.pros::c::controller_get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
-		rPower = master.get_analog(E_CONTROLLER_ANALOG_LEFT_Y) + master.pros::c::controller_get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
+		lPower = -1 * (master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) - master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
+		rPower = -1 * (master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) + master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
 
 		leftDrive.move(lPower);
 		rightDrive.move(rPower);

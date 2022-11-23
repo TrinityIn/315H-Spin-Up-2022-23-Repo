@@ -5,6 +5,9 @@ bool startCataTask = true;
 
 void prime() {
     while (cataPrime.get_value() > 1500/*arbitrary value*/) {
+        //the encoder rotates -1984 to prime
+        //total rotation is -2520
+        //therefore 
         pros::lcd::print(0, "hello");
         catapult.move(127);
         pros::delay(10);
