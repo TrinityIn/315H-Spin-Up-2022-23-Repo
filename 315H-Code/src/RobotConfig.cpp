@@ -18,7 +18,8 @@ pros::Motor roller(3, pros::E_MOTOR_GEARSET_06);
 
 //sensors
 pros::Optical optRoller(12);
-pros::ADIAnalogIn cataPrime('e');
+pros::IMU imu(4);
+pros::ADIDigitalIn cataPrime('a');
 
 
 //controllers
