@@ -2,16 +2,19 @@
 
 bool shootBtn = true;
 bool startCataTask = true;
+//bool down = cataPrime.get_value();
 
-void prime() {
+void prime(int delay) {
     catapult.move(-127);
-    pros::delay(1000);
-    while (!cataPrime.get_value()/*arbitrary value*/) {
+    pros::delay(delay);
+
+    while (!(cataPrime.get_value())) {
         //the encoder rotates -1984 to prime
         //total rotation is -2520
         //therefore 
         //pros::lcd::print(0, "hell");
-        catapult.move(-50);
+        catapult.move(-60);
+        //down = cataPrime.get_value();
         pros::delay(10);
     }
     catapult.move(-10);
@@ -33,7 +36,7 @@ void operateCatapult(void*) {
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && !shootBtn) {
             shootBtn = true;
             fire();
-            prime();
+            prime(1500);
         }
         shootBtn = false;
     }

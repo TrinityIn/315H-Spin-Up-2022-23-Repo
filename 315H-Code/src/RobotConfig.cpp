@@ -2,15 +2,15 @@
 #include "pros/motors.h"
 
 //motors
-pros::Motor leftFront(10, true);
-pros::Motor leftTop(8);
-pros::Motor leftBottom(9, true);
-pros::Motor_Group leftDrive({leftFront, leftTop, leftBottom});
+pros::Motor rightBack(10, true);
+pros::Motor rightTop(8);
+pros::Motor rightBottom(9, true);
+pros::Motor_Group rightDrive({rightBack, rightTop, rightBottom});
 
-pros::Motor rightFront(5);
-pros::Motor rightTop(7, true);
-pros::Motor rightBottom(6);
-pros::Motor_Group rightDrive({rightFront, rightTop, rightBottom});
+pros::Motor leftBack(5);
+pros::Motor leftTop(7, true);
+pros::Motor leftBottom(6);
+pros::Motor_Group leftDrive({leftBack, leftTop, leftBottom});
 
 
 pros::Motor catapult(12, pros::E_MOTOR_GEARSET_36);

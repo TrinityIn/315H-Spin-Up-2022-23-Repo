@@ -29,9 +29,8 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 
 	pros::lcd::register_btn1_cb(on_center_button);
-
-	prime();
 }
+
 
 /**
  * Runs while the robot is in the disabled state of Field Management System or
@@ -83,7 +82,7 @@ void opcontrol() {
 	//pros::Motor right_mtr(2);
 
 	//run roller task
-	prime();
+	prime(400);
 	runRollerTask();
 	runCataTask();
 	int lPower = 0;
@@ -91,8 +90,8 @@ void opcontrol() {
 
 	while (true) {
 		//move drivebase
-		lPower = -1 * (master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) - master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
-		rPower = -1 * (master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) + master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
+		lPower = -1 * (master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) + master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
+		rPower = -1 * (master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) - master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
 
 		leftDrive.move(lPower);
 		rightDrive.move(rPower);
