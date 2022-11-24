@@ -1,6 +1,8 @@
 #include "main.h"
 #include "CatapultControl.hpp"
 #include "DrivebaseControl.hpp"
+#include "AutonPrograms.hpp"
+
 
 /**
  * A callback function for LLEMU's center button.
