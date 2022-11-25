@@ -107,85 +107,11 @@
             "-funwind-tables",
             "--std=gnu++17",
             "-o",
-            "bin/RobotConfig.cpp.o",
-            "src/RobotConfig.cpp"
-        ],
-        "directory": "/Users/evanwu/Documents/GitHub/315H-Spin-Up-2022-23-Repo/315H-Code",
-        "file": "src/RobotConfig.cpp"
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1",
-            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/arm-none-eabi/thumb/v7-a+simd/softfp",
-            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/backward",
-            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/include",
-            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/include-fixed",
-            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-            "-iquote./include/okapi/squiggles",
-            "-iquote./include/./",
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-D_POSIX_TIMERS",
-            "-D_POSIX_MONOTONIC_CLOCK",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
-            "bin/RobotConfig.cpp.o",
-            "src/RobotConfig.cpp"
-        ],
-        "directory": "/Users/evanwu/Documents/GitHub/315H-Spin-Up-2022-23-Repo/315H-Code",
-        "file": "src/RobotConfig.cpp"
-    },
-    {
-        "arguments": [
-            "clang++",
-            "-c",
-            "-target",
-            "armv7ar-none-none-eabi",
-            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1",
-            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/arm-none-eabi/thumb/v7-a+simd/softfp",
-            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/backward",
-            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/include",
-            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/include-fixed",
-            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include",
-            "-iquote./include",
-            "-iquote./include/okapi/squiggles",
-            "-iquote./include/./",
-            "-mcpu=cortex-a9",
-            "-mfpu=neon-fp16",
-            "-mfloat-abi=softfp",
-            "-Os",
-            "-g",
-            "-D_POSIX_THREADS",
-            "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
-            "-D_POSIX_TIMERS",
-            "-D_POSIX_MONOTONIC_CLOCK",
-            "-Wno-psabi",
-            "-ffunction-sections",
-            "-fdata-sections",
-            "-fdiagnostics-color",
-            "-funwind-tables",
-            "--std=gnu++17",
-            "-o",
             "bin/DrivebaseControl.cpp.o",
-            "src\\DrivebaseControl.cpp"
+            "src/DrivebaseControl.cpp"
         ],
-        "directory": "C:\\User Programs\\VEX315H\\315H-Spin-Up-2022-23-Repo\\315H-code",
-        "file": "src\\DrivebaseControl.cpp"
+        "directory": "/Users/evanwu/Documents/GitHub/315H-Spin-Up-2022-23-Repo/315H-Code",
+        "file": "src/DrivebaseControl.cpp"
     },
     {
         "arguments": [
@@ -193,15 +119,12 @@
             "-c",
             "-target",
             "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\haiky\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1",
-            "-isystemc:\\users\\haiky\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/arm-none-eabi/thumb/v7-a+simd/softfp",
-            "-isystemc:\\users\\haiky\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/backward",
-            "-isystemc:\\users\\haiky\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/include",
-            "-isystemc:\\users\\haiky\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/include-fixed",
-            "-isystemc:\\users\\haiky\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include",
+            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1",
+            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/arm-none-eabi/thumb/v7-a+simd/softfp",
+            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/backward",
+            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/include",
+            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/include-fixed",
+            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include",
             "-iquote./include",
             "-iquote./include/okapi/squiggles",
             "-iquote./include/./",
@@ -222,10 +145,10 @@
             "--std=gnu++17",
             "-o",
             "bin/main.cpp.o",
-            "src\\main.cpp"
+            "src/main.cpp"
         ],
-        "directory": "C:\\User Programs\\VEX315H\\315H-Spin-Up-2022-23-Repo\\315H-code",
-        "file": "src\\main.cpp"
+        "directory": "/Users/evanwu/Documents/GitHub/315H-Spin-Up-2022-23-Repo/315H-Code",
+        "file": "src/main.cpp"
     },
     {
         "arguments": [
@@ -233,15 +156,12 @@
             "-c",
             "-target",
             "armv7ar-none-none-eabi",
-            "-fno-ms-extensions",
-            "-fno-ms-compatibility",
-            "-fno-delayed-template-parsing",
-            "-isystemc:\\users\\haiky\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1",
-            "-isystemc:\\users\\haiky\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/arm-none-eabi/thumb/v7-a+simd/softfp",
-            "-isystemc:\\users\\haiky\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/backward",
-            "-isystemc:\\users\\haiky\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/include",
-            "-isystemc:\\users\\haiky\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/include-fixed",
-            "-isystemc:\\users\\haiky\\appdata\\roaming\\code\\user\\globalstorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include",
+            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1",
+            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/arm-none-eabi/thumb/v7-a+simd/softfp",
+            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/backward",
+            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/include",
+            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/include-fixed",
+            "-isystem/opt/homebrew/Cellar/arm-gcc-bin@10/10.3-2021.07_1/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include",
             "-iquote./include",
             "-iquote./include/okapi/squiggles",
             "-iquote./include/./",
@@ -262,9 +182,9 @@
             "--std=gnu++17",
             "-o",
             "bin/CatapultControl.cpp.o",
-            "src\\CatapultControl.cpp"
+            "src/CatapultControl.cpp"
         ],
         "directory": "/Users/evanwu/Documents/GitHub/315H-Spin-Up-2022-23-Repo/315H-Code",
-        "file": "src/DrivebaseControl.cpp"
+        "file": "src/CatapultControl.cpp"
     }
 ]

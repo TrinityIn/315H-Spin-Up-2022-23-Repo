@@ -2,14 +2,14 @@
 #include "pros/motors.h"
 
 //motors
-pros::Motor rightBack(10, true);
-pros::Motor rightTop(8);
-pros::Motor rightBottom(9, true);
+pros::Motor rightBack(10);
+pros::Motor rightTop(8, true);
+pros::Motor rightBottom(9);
 pros::Motor_Group rightDrive({rightBack, rightTop, rightBottom});
 
-pros::Motor leftBack(5);
-pros::Motor leftTop(7, true);
-pros::Motor leftBottom(6);
+pros::Motor leftBack(5, true);
+pros::Motor leftTop(7);
+pros::Motor leftBottom(6, true);
 pros::Motor_Group leftDrive({leftBack, leftTop, leftBottom});
 
 

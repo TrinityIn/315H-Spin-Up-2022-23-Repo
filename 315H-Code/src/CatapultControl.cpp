@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/misc.h"
 
 bool shootBtn = true;
 bool startCataTask = true;
@@ -17,7 +18,9 @@ void prime(int delay) {
         //down = cataPrime.get_value();
         pros::delay(10);
     }
-    catapult.move(-10);
+    catapult.move(-60);
+    pros::delay(50);
+    catapult.move(0);
     return;
 }
 
@@ -38,6 +41,12 @@ void operateCatapult(void*) {
             fire();
             prime(1500);
         }
+        // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+        //     catapult.move(20);
+        // }
+        // else if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+        //     catapult.move(-10);
+        // }
         shootBtn = false;
     }
     pros::delay(10);

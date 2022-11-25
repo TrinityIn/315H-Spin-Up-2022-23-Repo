@@ -1,27 +1,36 @@
 #ifndef _DRIVEBASE_CONTROL_HPP_
 #define _DRIVEBASE_CONTROL_HPP_
 
+#include "pros/motors.hpp"
 class Drivebase {
     public:
-        Drivebase(double gearRatio, double wheelDiameter);
+        Drivebase(double gearRat, double degrees);
         void calculatePower();
 
-        pros::Motor *motorArray[6] = {
-        &rightBack, &rightTop, &rightBottom, &leftBack, &leftTop, &leftBottom
-    };
+        pros::Motor_Group *motorArray[2] = {&rightDrive, &leftDrive};
+        int previousLPower = 0;
+        int previousRPower = 0;
+
     private:
         
-        int lPower;
-        int rPower;
+        //drive powers
+        int lVoltage; //left drive output (mV)
+        int rVoltage; //right drive output (mV)
+        
+        //input values
+        int verticalPower; //controls forward/backward movement
+        int turnPower; //controls turning
         
         double gearRatio;
-        double wheelDiameter;
+        double encoderPerInch;
 
-        int slewControl(int targetPower, int currentPower, int slewRate);
+        int slewControl(pros::Motor_Group* motor, int targetPower, int currentPower, int slewRate);
+        int getVerticalPower(int verticalInput);
+        int getTurnPower(int turnInput);
 
         int speed[128] = {
             0,  
-            0,      0,      0,      0,      0,      0,      0,      0,      0, //10
+            0,      0,      0,      0,      0,      0,      0,      0,      0,      0,    //10
             2362,   2362,   2362,   2362,   2362,   2362,   2362,   2362,   2362,   2362, //20
             2362,   2362,   2362,   2362,   2362,   2457,   2551,   2646,   2740,   2835, //30
             2929,   3024,   3118,   3213,   3307,   3402,   3496,   3591,   3685,   3780, //40
@@ -34,6 +43,7 @@ class Drivebase {
             9543,   9638,   9732,   9827,   9921,  10016,  10110,  10205,  10299,  10394, //110
             10488,  10583,  10677,  10772,  10866,  10961,  11055,  11150,  11244,  11339, //120
             11433,  11528,  11622,  11717,  11811,  11906,  12000
+           
         };
 
         int turn [128] = {

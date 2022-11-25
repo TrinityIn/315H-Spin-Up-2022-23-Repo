@@ -79,7 +79,7 @@ bin/main.cpp.o: src/main.cpp include/main.h include/api.h \
  include/RobotConfig.hpp include/AutonPrograms.hpp \
  include/CatapultControl.hpp include/DrivebaseControl.hpp \
  include/RollerControl.hpp include/CatapultControl.hpp \
- include/DrivebaseControl.hpp
+ include/DrivebaseControl.hpp include/AutonPrograms.hpp
 include/main.h:
 include/api.h:
 include/pros/adi.h:
@@ -240,3 +240,4 @@ include/DrivebaseControl.hpp:
 include/RollerControl.hpp:
 include/CatapultControl.hpp:
 include/DrivebaseControl.hpp:
+include/AutonPrograms.hpp:

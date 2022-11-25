@@ -3,6 +3,8 @@
 #include "DrivebaseControl.hpp"
 #include "AutonPrograms.hpp"
 
+Drivebase drivebase(0.5, 25/*replace*/);
+
 
 /**
  * A callback function for LLEMU's center button.
@@ -29,6 +31,7 @@ void on_center_button() {
 void initialize() {
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
+
 
 	pros::lcd::register_btn1_cb(on_center_button);
 }
@@ -79,27 +82,25 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
 	//pros::Motor left_mtr(1);
 	//pros::Motor right_mtr(2);
 
 	//run roller task
-	prime(400);
+	//prime(400); //remove once ratchet is attached
 	runRollerTask();
 	runCataTask();
-	int lPower = 0;
-	int rPower = 0;
 
 	while (true) {
 		//move drivebase
-		lPower = -1 * (master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) + master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
-		rPower = -1 * (master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) - master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
+		drivebase.calculatePower();
+		// lPower = -1 * (master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) + master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
+		// rPower = -1 * (master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) - master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
 
-		leftDrive.move(lPower);
-		rightDrive.move(rPower);
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
+		// leftDrive.move(lPower);
+		// rightDrive.move(rPower);
+		// pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
+		//                  (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
+		//                  (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
 
 		
 
