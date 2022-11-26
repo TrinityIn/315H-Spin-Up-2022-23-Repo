@@ -26,7 +26,8 @@ pros::ADIDigitalIn cataPrime('a');
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 void init_sensors() {
-
+    imu.reset();
+    pros::delay(3000);
 }
 
 

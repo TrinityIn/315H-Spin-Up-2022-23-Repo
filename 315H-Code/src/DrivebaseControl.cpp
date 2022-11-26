@@ -11,6 +11,50 @@ Drivebase::Drivebase(double gearRat, double degrees) {
     encoderPerInch = degrees;
 }
 
+void Drivebase::turnPID(int degrees) {
+    imu.reset();
+    
+    // settings
+    double kP = 0.0;
+    double kI = 0.0;
+    double kD = 0.0;
+
+    // set desired value to parameter 
+    int desiredTurnValue = degrees;
+    // value of the current heading
+    int currentHeading;
+    // contains PD output
+    int turnMotorPower;
+
+    int error; // sensorValue - desiredValue : positional value, dx
+    int prevError = 0; // position 20ms ago
+    int totalError = 0; // totalError = totalError + error
+    int derivative; //error  - prevError : Speed
+
+    while(error>1){
+        //get positions of both motor group
+        currentHeading = imu.get_heading();
+
+        //Proportional
+        error = currentHeading - desiredTurnValue;
+
+        //Derivative
+        derivative = error - prevError;
+
+        //Integral
+        //totalError += error;
+
+        //PD controller
+        turnMotorPower = (error * kP) + (derivative * kD);
+
+        leftDrive.move(turnMotorPower);
+        rightDrive.move(turnMotorPower);
+
+        prevError = error;
+        pros::delay(20);
+    }
+}
+
 void Drivebase::calculatePower() {
     //get desired speed
     verticalPower = getVerticalPower(master.get_analog(LEFT_Y));

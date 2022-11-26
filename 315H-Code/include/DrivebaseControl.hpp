@@ -6,6 +6,7 @@ class Drivebase {
     public:
         Drivebase(double gearRat, double degrees);
         void calculatePower();
+        void turnPID(int degrees);
 
         pros::Motor_Group *motorArray[2] = {&rightDrive, &leftDrive};
         int previousLPower = 0;
