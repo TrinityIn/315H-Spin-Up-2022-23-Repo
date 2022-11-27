@@ -19,7 +19,7 @@ void prime(int delay) {
         pros::delay(10);
     }
     catapult.move(-60);
-    pros::delay(50);
+    pros::delay(100);
     catapult.move(0);
     return;
 }
@@ -48,8 +48,8 @@ void operateCatapult(void*) {
         //     catapult.move(-10);
         // }
         shootBtn = false;
+        pros::delay(10);
     }
-    pros::delay(10);
 }
 
 void runCataTask() {

@@ -26,9 +26,9 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	init_sensors();
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
+	init_sensors();
 
 
 	pros::lcd::register_btn1_cb(on_center_button);
@@ -98,7 +98,6 @@ void opcontrol() {
 
 		// leftDrive.move(lPower);
 		// rightDrive.move(rPower);
-		// pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		//                  (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
 		//                  (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
 

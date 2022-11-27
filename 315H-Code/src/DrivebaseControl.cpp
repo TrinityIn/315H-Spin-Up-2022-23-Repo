@@ -1,7 +1,7 @@
 #include "main.h"
 #include "pros/motors.hpp"
 
-#define SLEW_RATE 900
+#define SLEW_RATE 850
 #define MAX_VOLTAGE 12000
 #define LEFT_Y pros::E_CONTROLLER_ANALOG_LEFT_Y
 #define RIGHT_X pros::E_CONTROLLER_ANALOG_RIGHT_X
@@ -15,9 +15,9 @@ void Drivebase::turnPID(int degrees) {
     imu.reset();
     
     // settings
-    double kP = 1.0;
-    double kI = 1.0;
-    double kD = 1.0;
+    double kP = 1.0; //tune
+    double kI = 1.0; //tune
+    double kD = 1.0; //tune
 
     // set desired value to parameter 
     int desiredTurnValue = degrees;
@@ -66,8 +66,9 @@ void Drivebase::calculatePower() {
 
     int scaleFactor = fmax(abs(lVoltage), fmax(MAX_VOLTAGE, abs(rVoltage)));
 
-    lVoltage *= MAX_VOLTAGE/scaleFactor;
-    rVoltage *= MAX_VOLTAGE/scaleFactor;
+    //multiplying by (MAX_VOLTAGE/scaleFactor) rounds down to 0 when scaleFactor > MAX_VOLTAGE
+    lVoltage = (lVoltage * MAX_VOLTAGE)/scaleFactor; 
+    rVoltage = (rVoltage * MAX_VOLTAGE)/scaleFactor;
 
     pros::lcd::clear();
     pros::lcd::print(0, "lVoltage: %d", lVoltage);
@@ -76,8 +77,8 @@ void Drivebase::calculatePower() {
     previousRPower = slewControl(motorArray[0], rVoltage, previousRPower, SLEW_RATE);
     previousLPower = slewControl(motorArray[1], lVoltage, previousLPower, SLEW_RATE);
 
-    pros::lcd::print(2, "previousRPower: %d", previousRPower);
-    pros::lcd::print(3, "previousLPower: %d", previousLPower);
+    pros::lcd::print(2, "verticalPower: %d", verticalPower);
+    pros::lcd::print(3, "turnPower: %d", turnPower);
 
 }
 

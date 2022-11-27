@@ -59,6 +59,7 @@ void operateRoller(void*) {
     //   stopRollerBtn = false;
     // }
 
+    //pros::lcd::print(0, "roller");
     pros::delay(10);
   }
 }
