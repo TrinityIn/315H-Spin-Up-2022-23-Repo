@@ -15,21 +15,21 @@ void Drivebase::turnPID(int degrees) {
     imu.reset();
     
     // settings
-    double kP = 0.0;
-    double kI = 0.0;
-    double kD = 0.0;
+    double kP = 1.0;
+    double kI = 1.0;
+    double kD = 1.0;
 
     // set desired value to parameter 
     int desiredTurnValue = degrees;
     // value of the current heading
     int currentHeading;
     // contains PD output
-    int turnMotorPower;
+    double turnMotorPower;
 
-    int error; // sensorValue - desiredValue : positional value, dx
-    int prevError = 0; // position 20ms ago
-    int totalError = 0; // totalError = totalError + error
-    int derivative; //error  - prevError : Speed
+    double error; // sensorValue - desiredValue : positional value, dx
+    double prevError = 0; // position 20ms ago
+    double totalError = 0; // totalError = totalError + error
+    double derivative; //error  - prevError : Speed
 
     while(error>1){
         //get positions of both motor group
@@ -42,10 +42,10 @@ void Drivebase::turnPID(int degrees) {
         derivative = error - prevError;
 
         //Integral
-        //totalError += error;
+        totalError += error;
 
         //PD controller
-        turnMotorPower = (error * kP) + (derivative * kD);
+        turnMotorPower = fmin((error * kP) + (derivative * kD) + (totalError * kI), 127);
 
         leftDrive.move(turnMotorPower);
         rightDrive.move(turnMotorPower);
