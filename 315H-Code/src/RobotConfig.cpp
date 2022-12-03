@@ -17,7 +17,7 @@ pros::Motor catapult(12, pros::E_MOTOR_GEARSET_36);
 pros::Motor roller(3, pros::E_MOTOR_GEARSET_06);
 
 //sensors
-pros::Optical optRoller(12);
+//pros::Optical optRoller(12);
 pros::IMU imu(4);
 pros::ADIDigitalIn cataPrime('a');
 
@@ -28,9 +28,13 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 void init_sensors() {
     imu.reset();
     pros::delay(3000);
+<<<<<<< Updated upstream
     return;
 }
 
 
 
 
+=======
+}
+>>>>>>> Stashed changes

@@ -25,5 +25,6 @@ extern pros::Controller master;
 
 
 void init_sensors();
+void filterIMUNoise(void*);
 
 #endif

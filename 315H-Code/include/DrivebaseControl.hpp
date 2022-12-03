@@ -8,6 +8,8 @@ class Drivebase {
         void calculatePower();
         void turnPID(int degrees);
 
+        void driveDistance(int distance, int degrees);
+
         pros::Motor_Group *motorArray[2] = {&rightDrive, &leftDrive};
         int previousLPower = 0;
         int previousRPower = 0;

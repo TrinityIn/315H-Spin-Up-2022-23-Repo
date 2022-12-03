@@ -11,13 +11,27 @@ Drivebase::Drivebase(double gearRat, double degrees) {
     encoderPerInch = degrees;
 }
 
+/*
+void Drivebase::driveDistance(int distance, int degrees){
+    while(distance ) {
+        leftDrive.move(0);
+        rightDrive.move(0);
+    }
+}*/
+
 void Drivebase::turnPID(int degrees) {
     imu.reset();
     
     // settings
+<<<<<<< Updated upstream
     double kP = 1.0; //tune
     double kI = 1.0; //tune
     double kD = 1.0; //tune
+=======
+    double kP = 0.1;
+    double kI = 0;
+    double kD = 0;
+>>>>>>> Stashed changes
 
     // set desired value to parameter 
     int desiredTurnValue = degrees;
@@ -31,12 +45,13 @@ void Drivebase::turnPID(int degrees) {
     double totalError = 0; // totalError = totalError + error
     double derivative; //error  - prevError : Speed
 
-    while(error>1){
+    do{
         //get positions of both motor group
-        currentHeading = imu.get_heading();
+        currentHeading = imu.get_rotation();
+        pros::lcd::print(2,"%0.2f", currentHeading);
 
         //Proportional
-        error = currentHeading - desiredTurnValue;
+        error = desiredTurnValue - currentHeading;
 
         //Derivative
         derivative = error - prevError;
@@ -45,14 +60,18 @@ void Drivebase::turnPID(int degrees) {
         totalError += error;
 
         //PD controller
-        turnMotorPower = fmin((error * kP) + (derivative * kD) + (totalError * kI), 127);
+        turnMotorPower = fmin(abs((int) ((error * kP) + (derivative * kD) + (totalError * kI))), 20);
+        if(error < 0) {
+            turnMotorPower *= -1;
+        }
+        pros::lcd::print(3, "Motor Power: %d", turnMotorPower);
 
         leftDrive.move(turnMotorPower);
-        rightDrive.move(turnMotorPower);
+        rightDrive.move(-turnMotorPower);
 
         prevError = error;
-        pros::delay(20);
-    }
+        pros::delay(10);
+    }while(error>5);
 }
 
 void Drivebase::calculatePower() {

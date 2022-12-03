@@ -7,6 +7,12 @@ void intake() {
     roller.move(127);
 }
 
+void intake(int mseconds) {
+    roller.move(127);
+    pros::delay(mseconds);
+    roller.move(0);
+}
+
 void spinRoller() {
 
 }
