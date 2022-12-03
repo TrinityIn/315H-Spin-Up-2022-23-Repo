@@ -23,15 +23,9 @@ void Drivebase::turnPID(int degrees) {
     imu.reset();
     
     // settings
-<<<<<<< Updated upstream
-    double kP = 1.0; //tune
-    double kI = 1.0; //tune
-    double kD = 1.0; //tune
-=======
     double kP = 0.1;
     double kI = 0;
     double kD = 0;
->>>>>>> Stashed changes
 
     // set desired value to parameter 
     int desiredTurnValue = degrees;
