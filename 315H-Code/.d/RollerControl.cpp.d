@@ -77,7 +77,11 @@ bin/RollerControl.cpp.o: src/RollerControl.cpp include/main.h \
  include/pros/screen.hpp include/pros/screen.h include/pros/vision.hpp \
  include/pros/vision.h include/pros/link.hpp include/pros/link.h \
  include/RobotConfig.hpp include/AutonPrograms.hpp \
+<<<<<<< Updated upstream
  include/CatapultControl.hpp include/DrivebaseControl.hpp \
+=======
+ include/DrivebaseControl.hpp include/CatapultControl.hpp \
+>>>>>>> Stashed changes
  include/RollerControl.hpp
 include/main.h:
 include/api.h:
@@ -234,6 +238,11 @@ include/pros/link.hpp:
 include/pros/link.h:
 include/RobotConfig.hpp:
 include/AutonPrograms.hpp:
+<<<<<<< Updated upstream
 include/CatapultControl.hpp:
 include/DrivebaseControl.hpp:
+=======
+include/DrivebaseControl.hpp:
+include/CatapultControl.hpp:
+>>>>>>> Stashed changes
 include/RollerControl.hpp:
