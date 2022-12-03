@@ -19,7 +19,7 @@ void Drivebase::driveDistance(int distance, int degrees){
     }
 }*/
 
-void Drivebase::turnPID(int degrees) {
+void Drivebase::turnPID(int desiredTurnValue) {
     imu.reset();
     
     // settings
@@ -28,7 +28,7 @@ void Drivebase::turnPID(int degrees) {
     double kD = 0;
 
     // set desired value to parameter 
-    int desiredTurnValue = degrees;
+    //int desiredTurnValue = degrees;
     // value of the current heading
     int currentHeading;
     // contains PD output
@@ -41,8 +41,8 @@ void Drivebase::turnPID(int degrees) {
 
     do{
         //get positions of both motor group
-        currentHeading = imu.get_rotation();
-        pros::lcd::print(2,"%0.2f", currentHeading);
+        currentHeading = (int) imu.get_rotation();
+        pros::lcd::print(2,"%d", currentHeading);
 
         //Proportional
         error = desiredTurnValue - currentHeading;
