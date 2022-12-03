@@ -1,0 +1,7 @@
+
+*.json
+*.bin
+*.o
+*.elf
+315H-Code/bin/_pros_ld_timestamp.o
+*.o
