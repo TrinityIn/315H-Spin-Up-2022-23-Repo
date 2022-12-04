@@ -37,6 +37,7 @@
 #include "api.h"
 #include "RobotConfig.hpp"
 #include "AutonPrograms.hpp"
+#include "DisplayUtility.hpp"
 //#include "BasicDrivebase.hpp"
 #include "CatapultControl.hpp"
 #include "DrivebaseControl.hpp"
@@ -82,6 +83,8 @@ void opcontrol(void);
  * You can add C++-only headers here
  */
 //#include <iostream>
+extern Drivebase drivebase;
+
 #endif
 
 #endif  // _PROS_MAIN_H_
