@@ -1,5 +1,7 @@
 
 *.json
+*.idx
+*.d
 *.bin
 *.o
 *.elf
