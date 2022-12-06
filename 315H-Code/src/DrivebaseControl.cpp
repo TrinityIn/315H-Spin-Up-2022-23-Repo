@@ -1,7 +1,7 @@
 #include "main.h"
 #include "pros/motors.hpp"
 
-#define SLEW_RATE 850
+#define SLEW_RATE 1000
 #define MAX_VOLTAGE 12000
 #define LEFT_Y pros::E_CONTROLLER_ANALOG_LEFT_Y
 #define RIGHT_X pros::E_CONTROLLER_ANALOG_RIGHT_X

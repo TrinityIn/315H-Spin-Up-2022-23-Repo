@@ -3,6 +3,11 @@
 
 #include "DrivebaseControl.hpp"
 
-void soloWinPointRed(Drivebase drivebase);
+void soloWinPointRed();
+void soloWinPointBlue();
 
+void farRollerRed();
+void farRollerBlue();
+
+void autonSkills();
 #endif
