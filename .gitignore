@@ -7,3 +7,5 @@
 *.elf
 315H-Code/bin/_pros_ld_timestamp.o
 *.o
+*.o
+*.json
