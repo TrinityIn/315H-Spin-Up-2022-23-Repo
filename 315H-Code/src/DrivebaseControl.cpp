@@ -1,7 +1,7 @@
 #include "main.h"
 #include "pros/motors.hpp"
 
-#define SLEW_RATE 1000
+#define SLEW_RATE 2000
 #define MAX_VOLTAGE 12000
 #define LEFT_Y pros::E_CONTROLLER_ANALOG_LEFT_Y
 #define RIGHT_X pros::E_CONTROLLER_ANALOG_RIGHT_X
@@ -92,6 +92,7 @@ void Drivebase::calculatePower() {
 
     pros::lcd::print(2, "verticalPower: %d", verticalPower);
     pros::lcd::print(3, "turnPower: %d", turnPower);
+    pros::lcd::print(4, "state: %d", state);
 
 }
 

@@ -21,6 +21,9 @@ pros::Motor roller(3, pros::E_MOTOR_GEARSET_06);
 pros::IMU imu(4);
 pros::ADIDigitalIn cataPrime('a');
 
+//pneumatics
+pros::ADIDigitalOut leftExpander('b');
+
 
 //controllers
 pros::Controller master(pros::E_CONTROLLER_MASTER);

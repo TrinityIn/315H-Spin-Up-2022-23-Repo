@@ -20,6 +20,9 @@ extern pros::Optical optRoller;
 extern pros::IMU imu;
 extern pros::ADIDigitalIn cataPrime;
 
+//pneumatics
+extern pros::ADIDigitalOut leftExpander;
+
 //controllers
 extern pros::Controller master;
 

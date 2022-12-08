@@ -3,6 +3,7 @@
 
 bool shootBtn = true;
 bool startCataTask = true;
+bool primed = true;
 //bool down = cataPrime.get_value();
 
 void prime(int delay) {
@@ -38,8 +39,15 @@ void operateCatapult(void*) {
     while (true) {
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && !shootBtn) {
             shootBtn = true;
+            //checks if the catapult starts from a primed position
+            if(cataPrime.get_value()) 
+                primed = true;
+            else 
+                primed = false;
+            
             fire();
-            prime(1500);
+            if (primed) prime(1500);
+            else prime(300);
         }
         // if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
         //     catapult.move(20);

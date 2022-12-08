@@ -114,6 +114,7 @@ void opcontrol() {
 	//run roller task
 	//prime(400); //remove once ratchet is attached
 	runRollerTask();
+	runExpanderTask();
 	runCataTask();
 
 	while (true) {

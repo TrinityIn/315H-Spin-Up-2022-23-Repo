@@ -41,6 +41,7 @@
 #include "CommonUtility.hpp"
 #include "CatapultControl.hpp"
 #include "DrivebaseControl.hpp"
+#include "ExpanderControl.hpp"
 #include "RollerControl.hpp"
 
 /**
