@@ -141,36 +141,36 @@ void setStyle (lv_obj_t *btn, int styleType)
   lv_btn_set_action(btn, LV_BTN_ACTION_CLICK, switch_to_Match);
 
 	if (styleType == 1)
-  {
-  	lv_btn_set_style(btn, LV_BTN_STYLE_REL, &redStyleOFF);
-  	lv_btn_set_style(btn, LV_BTN_STYLE_PR, &redStyleON); //set the pressed style
-  	lv_btn_set_style(btn, LV_BTN_STYLE_TGL_REL, &redStyleON); //set the toggle released style
-  	lv_btn_set_style(btn, LV_BTN_STYLE_TGL_PR, &redStyleOFF); //set the toggle pressed style
-	}
-	else if (styleType == 2)
-  {
-		lv_btn_set_style(btn, LV_BTN_STYLE_REL, &blueStyleOFF);
-		lv_btn_set_style(btn, LV_BTN_STYLE_PR, &blueStyleON); //set the pressed style
-		lv_btn_set_style(btn, LV_BTN_STYLE_TGL_REL, &blueStyleON); //set the toggle released style
-		lv_btn_set_style(btn, LV_BTN_STYLE_TGL_PR, &blueStyleOFF); //set the toggle pressed style
-	}
-  else if (styleType == 3)
-  {
-		lv_btn_set_style(btn, LV_BTN_STYLE_REL, &skillsStyleOFF);
-		lv_btn_set_style(btn, LV_BTN_STYLE_PR, &skillsStyleON); //set the pressed style
-		lv_btn_set_style(btn, LV_BTN_STYLE_TGL_REL, &skillsStyleON); //set the toggle released style
-		lv_btn_set_style(btn, LV_BTN_STYLE_TGL_PR, &skillsStyleOFF); //set the toggle pressed style
-	}
-  else if (styleType == 4)
-  {
-  	lv_btn_set_style(btn, LV_BTN_STYLE_REL, &selectedStyleOFF);
-  	lv_btn_set_style(btn, LV_BTN_STYLE_PR, &selectedStyleON); //set the pressed style
-  	lv_btn_set_style(btn, LV_BTN_STYLE_TGL_REL, &selectedStyleON); //set the toggle released style
-  	lv_btn_set_style(btn, LV_BTN_STYLE_TGL_PR, &selectedStyleOFF); //set the toggle pressed style
-  }
-
-  lv_obj_set_size(btn, buttonW, buttonH); //set the button size
-}
+    {
+        lv_btn_set_style(btn, LV_BTN_STYLE_REL, &redStyleOFF);
+        lv_btn_set_style(btn, LV_BTN_STYLE_PR, &redStyleON); //set the pressed style
+        lv_btn_set_style(btn, LV_BTN_STYLE_TGL_REL, &redStyleON); //set the toggle released style
+        lv_btn_set_style(btn, LV_BTN_STYLE_TGL_PR, &redStyleOFF); //set the toggle pressed style
+        }
+        else if (styleType == 2)
+        {
+            lv_btn_set_style(btn, LV_BTN_STYLE_REL, &blueStyleOFF);
+            lv_btn_set_style(btn, LV_BTN_STYLE_PR, &blueStyleON); //set the pressed style
+            lv_btn_set_style(btn, LV_BTN_STYLE_TGL_REL, &blueStyleON); //set the toggle released style
+            lv_btn_set_style(btn, LV_BTN_STYLE_TGL_PR, &blueStyleOFF); //set the toggle pressed style
+        }
+        else if (styleType == 3)
+        {
+            lv_btn_set_style(btn, LV_BTN_STYLE_REL, &skillsStyleOFF);
+            lv_btn_set_style(btn, LV_BTN_STYLE_PR, &skillsStyleON); //set the pressed style
+            lv_btn_set_style(btn, LV_BTN_STYLE_TGL_REL, &skillsStyleON); //set the toggle released style
+            lv_btn_set_style(btn, LV_BTN_STYLE_TGL_PR, &skillsStyleOFF); //set the toggle pressed style
+        }
+        else if (styleType == 4)
+        {
+        lv_btn_set_style(btn, LV_BTN_STYLE_REL, &selectedStyleOFF);
+        lv_btn_set_style(btn, LV_BTN_STYLE_PR, &selectedStyleON); //set the pressed style
+        lv_btn_set_style(btn, LV_BTN_STYLE_TGL_REL, &selectedStyleON); //set the toggle released style
+        lv_btn_set_style(btn, LV_BTN_STYLE_TGL_PR, &selectedStyleOFF); //set the toggle pressed style
+        }
+    
+    lv_obj_set_size(btn, buttonW, buttonH); //set the button size
+    }
 
 void createStyle(lv_style_t *style, lv_color_t color)
 {
@@ -190,43 +190,43 @@ void initializeGUI()
 	// Red Tab
 	lv_page_set_scrl_layout(red_tab, LV_LAYOUT_GRID);
 
-  createStyle(&redStyleOFF, DISPLAY_RED);
-  createStyle(&redStyleON, DISPLAY_RED);
+    createStyle(&redStyleOFF, DISPLAY_RED);
+    createStyle(&redStyleON, DISPLAY_RED);
 
-  for (int i = 0; i < NUM_SELECTION; i++)
-  {
-    lv_obj_set_free_num(redButtons[i], i+1);
-  	setStyle(redButtons[i], 1);
-    lv_label_set_text(lv_label_create(redButtons[i], NULL), labelText[i+1]);
-  }
+    for (int i = 0; i < NUM_SELECTION; i++)
+    {
+        lv_obj_set_free_num(redButtons[i], i+1);
+        setStyle(redButtons[i], 1);
+        lv_label_set_text(lv_label_create(redButtons[i], NULL), labelText[i+1]);
+    }
 
 	//----------------------------------------------------------------------------
 	// Blue Tab
 	lv_page_set_scrl_layout(blue_tab, LV_LAYOUT_GRID);
 
-  createStyle(&blueStyleON, DISPLAY_BLUE);
-  createStyle(&blueStyleOFF, DISPLAY_BLUE);
+    createStyle(&blueStyleON, DISPLAY_BLUE);
+    createStyle(&blueStyleOFF, DISPLAY_BLUE);
 
-  for (int i = 0; i < NUM_SELECTION; i++)
-  {
-    lv_obj_set_free_num(blueButtons[i], i+1+NUM_SELECTION);
-  	setStyle(blueButtons[i], 2);
-    lv_label_set_text(lv_label_create(blueButtons[i], NULL), labelText[i+1+NUM_SELECTION]);
-  }
+    for (int i = 0; i < NUM_SELECTION; i++)
+    {
+        lv_obj_set_free_num(blueButtons[i], i+1+NUM_SELECTION);
+        setStyle(blueButtons[i], 2);
+        lv_label_set_text(lv_label_create(blueButtons[i], NULL), labelText[i+1+NUM_SELECTION]);
+    }
 
-	//----------------------------------------------------------------------------
-	// Other Tab
-	lv_page_set_scrl_layout(skills_tab, LV_LAYOUT_GRID);
+    //----------------------------------------------------------------------------
+    // Other Tab
+    lv_page_set_scrl_layout(skills_tab, LV_LAYOUT_GRID);
 
-  createStyle(&skillsStyleON, DISPLAY_YELLOW);
-  createStyle(&skillsStyleOFF, DISPLAY_YELLOW);
+    createStyle(&skillsStyleON, DISPLAY_YELLOW);
+    createStyle(&skillsStyleOFF, DISPLAY_YELLOW);
 
-  for (int i = 0; i < NUM_SELECTION; i++)
-  {
-    lv_obj_set_free_num(otherButtons[i], i+1+(2*NUM_SELECTION));
-    setStyle(otherButtons[i], 3);
-    lv_label_set_text(lv_label_create(otherButtons[i], NULL), labelText[i+1+(2*NUM_SELECTION)]);
-  }
+    for (int i = 0; i < NUM_SELECTION; i++)
+    {
+        lv_obj_set_free_num(otherButtons[i], i+1+(2*NUM_SELECTION));
+        setStyle(otherButtons[i], 3);
+        lv_label_set_text(lv_label_create(otherButtons[i], NULL), labelText[i+1+(2*NUM_SELECTION)]);
+    }
 
   //----------------------------------------------------------------------------
 

@@ -26,9 +26,11 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
+	//do NOT initialize LCD here, it will prevent GUI from displaying auton tabs
+	//pros::lcd::initialize();
+	//pros::lcd::set_text(1, "Hello PROS User!");
 	init_sensors();
+	initializeGUI();
 
 
 	pros::lcd::register_btn1_cb(on_center_button);
@@ -65,7 +67,31 @@ void competition_initialize() {}
  * from where it left off.
  */ 
 void autonomous() {
-	soloWinPointRed();
+	
+  //imu.set0();
+  //runControllerPrintTask();
+
+  switch (autonSelected)
+  {
+    // red side autons
+    case 1:
+      soloWinPointRed();
+      break;
+    
+    // blue side autons
+    case 1+NUM_SELECTION:
+      soloWinPointBlue();
+      break;
+    
+    // other programs
+    case 1+NUM_SELECTION*2:
+      // the skills program
+      soloWinPointRed();
+      break;
+    
+    default:
+      break;
+  }
 }
 
 /**
