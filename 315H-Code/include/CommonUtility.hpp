@@ -7,6 +7,8 @@
 #define SPECIALREADINGRATE 5
 #define V5READINGRATE 10
 
+#include "pros/vision.hpp"
+
 //------------------------------------------------------------------------------
 
 int slewControl (int targetPower, int currentPower, int accelCap);

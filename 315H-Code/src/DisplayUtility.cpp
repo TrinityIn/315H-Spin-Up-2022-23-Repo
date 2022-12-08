@@ -49,15 +49,15 @@ const char *labelText[] =
 {
   "FILLER TEXT",
   // red side autons
-  "AWP T", "AWP S", "Tall Cross", "Rush Mid",
-	"2 Neutral", "Qual 2N", "Neutral R", "Swipe R",
-  "Neutral L", "Qual L", "Hook L", "",
+  "Solo WP", "1 Roller", "", "",
+	"", "", "", "",
+  "", "", "", "",
   // blue side autons
-  "AWP T", "AWP S", "Tall Cross", "Rush Mid",
-	"2 Neutral", "Qual 2N", "Neutral R", "Swipe R",
-  "Neutral L", "Qual L", "Hook L", "",
+  "Solo WP", "1 Roller", "", "",
+	"", "", "", "",
+  "", "", "", "",
   // other programs
-	"Skills", "TT", "TD", "Test",
+	"Skills", "", "", "",
   "", "", "", "",
   "", "", "", ""
 };
