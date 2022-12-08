@@ -2,6 +2,7 @@
 #define _DRIVEBASE_CONTROL_HPP_
 
 #include "pros/motors.hpp"
+
 class Drivebase {
     public:
         Drivebase(double gearRat, double degrees);

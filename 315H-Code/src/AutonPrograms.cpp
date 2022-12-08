@@ -3,7 +3,7 @@
 const int CUTOFF_TIME = 11200;    
 
 //auton programs
-void soloWinPointRed(Drivebase drivebase)
+void soloWinPointRed()
 {
     intake(500);
 

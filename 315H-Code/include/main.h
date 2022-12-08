@@ -37,7 +37,7 @@
 #include "api.h"
 #include "RobotConfig.hpp"
 #include "AutonPrograms.hpp"
-//#include "DisplayUtility.hpp"
+#include "DisplayUtility.hpp"
 //#include "BasicDrivebase.hpp"
 #include "CatapultControl.hpp"
 #include "DrivebaseControl.hpp"
