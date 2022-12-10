@@ -1,17 +1,12 @@
 #include "main.h"
 
 /*------------------------ TIMER FUNCTIONS -----------------------------------*/
-#define NUM_TIMERS 7
+#define NUM_TIMERS 2
 int timers[NUM_TIMERS];
 
 /* Timer Usage:
-0: Timing for dubug
-1: Times during auton testing
-2: Times cooldown for liftClamp
-3: Times cooldown for tilterClamp
-4: Times for conveyer
-5: Times for auton functions
-6: Times for conveyer jam count
+0: Timing PID
+1: Timing for launchers
 */
 void resetTimer(int timer)
 {
@@ -33,11 +28,17 @@ int time(int timer)
   }
 }
 
-void setTime(int timer, int time)
+//returns time stored in timer
+int getTime(int timer) {
+  return timers[timer];
+}
+
+//set a beginning time and store it in Timer[timer]
+void setTime(int timer)
 {
   if (timer > -1 && timer < NUM_TIMERS)
   {
-    timers[timer] = time;
+    timers[timer] = pros::millis();
   }
 }
 

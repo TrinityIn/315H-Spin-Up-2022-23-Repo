@@ -19,7 +19,6 @@ extern pros::Motor roller;
 //sensors
 extern pros::Optical optRoller;
 extern InertialSensor imu;
-extern InertialSensor imu;
 extern VisionSensor liftVision;
 extern DistanceSensor liftDistance;
 extern VisionSensor tilterVision;

@@ -18,7 +18,7 @@ pros::Motor roller(3, pros::E_MOTOR_GEARSET_06);
 
 //sensors
 pros::Optical optRoller(13);
-InertialSensor imu(19, 91.56/90.0);
+InertialSensor imu(4, 91.56/90.0);
 //pros::IMU imu(4);
 pros::ADIDigitalIn cataPrime('a');
 
@@ -30,7 +30,6 @@ pros::ADIDigitalOut leftExpander('b');
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 void init_sensors() {
-    imu.reset();
     pros::delay(3000);
     return;
 }

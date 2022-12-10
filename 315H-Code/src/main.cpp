@@ -1,4 +1,5 @@
 #include "main.h"
+#include "AutonPrograms.hpp"
 #include "pros/llemu.hpp"
 
 Drivebase drivebase(0.5, 25/*replace*/);
@@ -71,7 +72,8 @@ void autonomous() {
 	
   //imu.set0();
   //runControllerPrintTask();
-  soloWinPointRed();
+  //soloWinPointRed();
+  soloWinPointBlue();
 /*
   switch (autonSelected)
   {

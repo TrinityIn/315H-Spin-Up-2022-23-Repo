@@ -1,5 +1,7 @@
 #include "main.h"
+#include "pros/llemu.hpp"
 #include "pros/motors.hpp"
+#include "pros/rtos.hpp"
 
 #define SLEW_RATE 2000
 #define MAX_VOLTAGE 12000
@@ -78,18 +80,21 @@ void Drivebase::autoTurnPID(double degrees, int maxSpeed)
   setWheelSpeed(0);
 } */
 
-void Drivebase::turnPID(int desiredTurnValue) {
-    imu.reset();
+void Drivebase::turnPID(int desiredTurnValue, int speed) {
+    //imu.reset();
+    imu.set0();
+    imu.tare_heading();
     
     // settings
-    double kP = 0.1;
-    double kI = 0;
-    double kD = 0;
+    double kP = 0.4;
+    double kI = 0.00005;  
+    double kD = 0.75;
 
     // set desired value to parameter 
-    //int desiredTurnValue = degrees;
+    desiredTurnValue *= 10;
+    
     // value of the current heading
-    int currentHeading;
+    double currentHeading;
     // contains PD output
     double turnMotorPower;
 
@@ -97,11 +102,24 @@ void Drivebase::turnPID(int desiredTurnValue) {
     double prevError = 0; // position 20ms ago
     double totalError = 0; // totalError = totalError + error
     double derivative; //error  - prevError : Speed
+    pros::lcd::print(2,"%0.2f", imu.getValue());
+
+    //int dugcount=0;
+    int sentinel = 0;
+    int time = 0;// timer for 300 ms
+    int timeTracker = 0;
 
     do{
         //get positions of both motor group
-        currentHeading = (int) imu.get_rotation();
-        pros::lcd::print(2,"%d", currentHeading);
+        currentHeading = imu.getValue() + 10;
+        //dugcount+=1;
+
+        pros::lcd::clear();
+        //pros::lcd::print(1,"%d", dugcount);
+        pros::lcd::print(3,"current heading: %.2f", currentHeading);
+        pros::lcd::print(4,"imu value: %0.2f", imu.getValue());
+        pros::lcd::print(5,"error/10%0.2f", error/10);
+        pros::lcd::print(6,"sentinel: %d", sentinel);
 
         //Proportional
         error = desiredTurnValue - currentHeading;
@@ -113,18 +131,31 @@ void Drivebase::turnPID(int desiredTurnValue) {
         totalError += error;
 
         //PD controller
-        turnMotorPower = fmin(abs((int) ((error * kP) + (derivative * kD) + (totalError * kI))), 20);
-        if(error < 0) {
+        turnMotorPower = fmin(abs((int) ((error * kP) + (derivative * kD) + (totalError * kI))), speed);
+        /*if(error < 0) {
             turnMotorPower *= -1;
-        }
-        pros::lcd::print(3, "Motor Power: %d", turnMotorPower);
+        }*/
+        //pros::lcd::print(3, "Motor Power: %d", turnMotorPower);
 
-        leftDrive.move(turnMotorPower);
-        rightDrive.move(-turnMotorPower);
+        leftDrive.move(sgn(error) * turnMotorPower);
+        rightDrive.move(-sgn(error) * turnMotorPower);
 
         prevError = error;
         pros::delay(10);
-    }while(error>5);
+
+        if (fabs(error) < 7 && timeTracker == 0) {
+            time = pros::millis(); 
+            timeTracker = 1;
+        }
+        if(pros::millis() - time >= 3000) {
+            sentinel = 1;
+            pros::lcd::print(6,"sentinel: %d", sentinel);
+        }
+
+    } while(sentinel == 0); //fabs(error) > 5
+
+    leftDrive.move(0);
+    rightDrive.move(0);
 }
 
 void Drivebase::calculatePower() {

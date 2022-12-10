@@ -7,7 +7,7 @@ class Drivebase {
     public:
         Drivebase(double gearRat, double degrees);
         void calculatePower();
-        void turnPID(int degrees);
+        void turnPID(int desiredTurnValue, int speed);
 
         void driveDistance(int distance, int degrees);
 

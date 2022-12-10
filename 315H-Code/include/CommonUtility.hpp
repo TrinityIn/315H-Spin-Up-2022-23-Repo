@@ -18,7 +18,8 @@ int convertVoltage(int currentVoltage);
 
 void resetTimer(int timer);
 int time(int timer);
-void setTime(int timer, int time);
+int getTime(int timer);
+void setTime(int timer);
 
 class InertialSensor : public pros::Imu
 {
@@ -39,7 +40,7 @@ class InertialSensor : public pros::Imu
     double getPitch();
 
   private:
-    double scale = 91.56/90;
+    double scale = 89.9/90; //calibration {88.9 89.36, }
     double pos0 = 0;
     int port;
 };

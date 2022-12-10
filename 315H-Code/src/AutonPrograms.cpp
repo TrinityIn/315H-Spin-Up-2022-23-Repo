@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/llemu.hpp"
 
 const int CUTOFF_TIME = 11200;    
 
@@ -25,7 +26,9 @@ void soloWinPointRed()
 
 void soloWinPointBlue()
 {
-    intake(500);
+    pros::lcd::initialize();
+    drivebase.turnPID(90, 90);
+
 
     /*
     leftDrive.move(100);
