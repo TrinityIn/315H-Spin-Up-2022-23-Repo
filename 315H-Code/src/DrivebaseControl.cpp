@@ -19,6 +19,65 @@ void Drivebase::driveDistance(int distance, int degrees){
     }
 }*/
 
+/*
+void Drivebase::autoTurnPID(double degrees, int maxSpeed)
+{
+  float degreesX10 = 10 * degrees;
+  int direction = sgn(degreesX10-imu.getValue());
+  float margin = fabs(degreesX10 - imu.getValue()) / 4.0;
+
+  // PID variables
+  float kP = 0.4;
+  float kD = 0.75; // .75
+  int counter = 0;
+
+  // acceleration
+  int setSpeed = minSpeed;
+  while (setSpeed < maxSpeed/2)
+  {
+    //autoTurnCalibrate(setSpeed * direction);
+    setSpeed += progAccelCap;
+
+    pros::delay(10);
+  }
+
+  // use PID for the rest
+  double currentDegrees = imu.getValue();
+  double error = degreesX10 - currentDegrees;
+  double previousError = degreesX10 - currentDegrees;
+  double derivative = 0;
+  int output;
+
+  while (counter < turningCounter)
+  {
+    // Final Output
+    output = kP * error + kD * derivative;
+    if (abs(output) > maxSpeed) {
+      output = maxSpeed * sgn(output);
+    }
+
+
+    pros::delay(10);
+
+    currentDegrees = imu.getValue();
+    error = degreesX10 - currentDegrees;
+    derivative = error - previousError;
+    previousError = error;
+
+    // checks if derivative is small enough to increase the counter
+    if (fabs(derivative) < turningDerivativeRange && fabs(error) < margin)
+    //if (fabs(error) < margin && isMoving(1))
+      counter++;
+    // if turnCanUseError then if error is small enough then exit the loop
+    else if (turnCanUseError && fabs(error) < 10)
+      break;
+    else
+      counter = 0;
+  }
+
+  setWheelSpeed(0);
+} */
+
 void Drivebase::turnPID(int desiredTurnValue) {
     imu.reset();
     
@@ -86,6 +145,7 @@ void Drivebase::calculatePower() {
     pros::lcd::clear();
     pros::lcd::print(0, "lVoltage: %d", lVoltage);
     pros::lcd::print(1, "rVoltage: %d", rVoltage);
+    pros::lcd::print(5, "optical: %0.2f", optRoller.get_hue());
 
     previousRPower = slewControl(motorArray[0], rVoltage, previousRPower, SLEW_RATE);
     previousLPower = slewControl(motorArray[1], lVoltage, previousLPower, SLEW_RATE);

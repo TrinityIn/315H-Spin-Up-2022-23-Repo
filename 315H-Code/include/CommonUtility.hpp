@@ -7,8 +7,6 @@
 #define SPECIALREADINGRATE 5
 #define V5READINGRATE 10
 
-#include "pros/vision.hpp"
-
 //------------------------------------------------------------------------------
 
 int slewControl (int targetPower, int currentPower, int accelCap);
@@ -41,7 +39,7 @@ class InertialSensor : public pros::Imu
     double getPitch();
 
   private:
-    double scale = 10;
+    double scale = 91.56/90;
     double pos0 = 0;
     int port;
 };

@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/llemu.hpp"
 
 Drivebase drivebase(0.5, 25/*replace*/);
 
@@ -70,7 +71,8 @@ void autonomous() {
 	
   //imu.set0();
   //runControllerPrintTask();
-
+  soloWinPointRed();
+/*
   switch (autonSelected)
   {
     // red side autons
@@ -91,7 +93,7 @@ void autonomous() {
     
     default:
       break;
-  }
+  }*/
 }
 
 /**
@@ -115,8 +117,9 @@ void opcontrol() {
 	//prime(400); //remove once ratchet is attached
 	runRollerTask();
 	runCataTask();
-
+	pros::lcd::initialize();
 	while (true) {
+		
 		//move drivebase
 		drivebase.calculatePower();
 		// lPower = -1 * (master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) + master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));

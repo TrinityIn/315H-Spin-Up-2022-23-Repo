@@ -4,7 +4,7 @@
 void intake();
 void intake(int mseconds);
 void runRollerTask();
-void spinRoller();
+void spinRoller(int c);
 
 extern bool runRollerBtn;
 extern bool stopRollerBtn;

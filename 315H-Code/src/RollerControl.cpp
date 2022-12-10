@@ -13,8 +13,31 @@ void intake(int mseconds) {
     roller.move(0);
 }
 
-void spinRoller() {
 
+//spin until red or blue based on c
+void spinRoller(int c) {
+  int color = (int) optRoller.get_hue();
+
+  //1: want red, 2: want blue
+  if(c == 1) {
+    while(color < 20) {
+      roller.move(100);
+      pros::delay(10);
+      color = (int) optRoller.get_hue();
+    }
+    roller.move(-75);
+    pros::delay(10);
+    roller.move(0);
+  } else {
+    while(color < 20) {
+      roller.move(100);
+      color = (int) optRoller.get_hue();
+      pros::delay(10);
+    }
+    roller.move(-75);
+    pros::delay(10);
+    roller.move(0);
+  }  
 }
 
 bool runRollerBtn = false;

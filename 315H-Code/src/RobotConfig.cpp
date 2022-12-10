@@ -17,8 +17,9 @@ pros::Motor catapult(12, pros::E_MOTOR_GEARSET_36);
 pros::Motor roller(3, pros::E_MOTOR_GEARSET_06);
 
 //sensors
-//pros::Optical optRoller(12);
-pros::IMU imu(4);
+pros::Optical optRoller(13);
+InertialSensor imu(19, 91.56/90.0);
+//pros::IMU imu(4);
 pros::ADIDigitalIn cataPrime('a');
 
 
