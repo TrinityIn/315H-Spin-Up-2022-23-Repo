@@ -114,7 +114,7 @@ void Drivebase::turnPID(int desiredTurnValue, int speed) {
 
     do{
         //get positions of both motor group
-        currentHeading = imu.getValue() + 10;
+        currentHeading = imu.getValue();
         //dugcount+=1;
 
         pros::lcd::clear();
@@ -150,7 +150,7 @@ void Drivebase::turnPID(int desiredTurnValue, int speed) {
             time = pros::millis(); 
             timeTracker = 1;
         }
-        if(pros::millis() - time >= 3000) {
+        if(pros::millis() - time >= 300 && timeTracker == 1) {
             sentinel = 1;
             pros::lcd::print(6,"sentinel: %d", sentinel);
         }
