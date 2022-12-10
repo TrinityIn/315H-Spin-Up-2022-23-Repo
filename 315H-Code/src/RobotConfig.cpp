@@ -22,6 +22,9 @@ InertialSensor imu(19, 91.56/90.0);
 //pros::IMU imu(4);
 pros::ADIDigitalIn cataPrime('a');
 
+//pneumatics
+pros::ADIDigitalOut leftExpander('b');
+
 
 //controllers
 pros::Controller master(pros::E_CONTROLLER_MASTER);

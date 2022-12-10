@@ -29,6 +29,9 @@ extern DistanceSensor distanceFront;
 
 extern pros::ADIDigitalIn cataPrime;
 
+//pneumatics
+extern pros::ADIDigitalOut leftExpander;
+
 //controllers
 extern pros::Controller master;
 
