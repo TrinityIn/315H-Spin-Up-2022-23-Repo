@@ -13,13 +13,16 @@ Drivebase::Drivebase(double gearRat, double degrees) {
     encoderPerInch = degrees;
 }
 
-/*
-void Drivebase::driveDistance(int distance, int degrees){
+
+void Drivebase::driveDistance(bool forward, int distance, int degrees){
+    
+    double encoderDistance = distance * encoderPerInch;
+    
     while(distance ) {
         leftDrive.move(0);
         rightDrive.move(0);
     }
-}*/
+}
 
 /*
 void Drivebase::autoTurnPID(double degrees, int maxSpeed)

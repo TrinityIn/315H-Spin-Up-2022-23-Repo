@@ -11,10 +11,6 @@ void prime(int delay) {
     pros::delay(delay);
 
     while (!(cataPrime.get_value())) {
-        //the encoder rotates -1984 to prime
-        //total rotation is -2520
-        //therefore 
-        //pros::lcd::print(0, "hell");
         catapult.move(-60);
         //down = cataPrime.get_value();
         pros::delay(10);
@@ -30,8 +26,8 @@ void fire() {
     catapult.move(-30);
     pros::delay(100);
     catapult.move(0);
-    pros::lcd::print(0, "fire");    
-    pros::delay(100);
+    //pros::lcd::print(0, "fire");    
+    pros::delay(10);
 
 }
 

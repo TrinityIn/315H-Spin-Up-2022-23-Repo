@@ -1,3 +1,4 @@
+#include "DrivebaseControl.hpp"
 #include "main.h"
 #include "pros/llemu.hpp"
 
@@ -14,7 +15,17 @@ void soloWinPointRed()
     leftDrive.move(0);
     rightDrive.move(0);
 
-    
+    drivebase.driveDistance(true, 6, 0);
+    drivebase.turnPID(45, 90);
+    drivebase.driveDistance(true, 67 /*tune*/, 0);
+    drivebase.turnPID(-90, 90);
+    fire();
+    intake();
+    fire();
+    drivebase.turnPID(90, 90);
+    drivebase.driveDistance(true, 67, 0);
+    drivebase.turnPID(45, 90);
+
     /*
     
     pros::delay(250);
