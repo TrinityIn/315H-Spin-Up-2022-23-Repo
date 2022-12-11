@@ -1,12 +1,12 @@
 #include "main.h"
+#include "pros/misc.h"
 
 const pros::controller_digital_e_t START_INTAKE = pros::E_CONTROLLER_DIGITAL_L1;
-const pros::controller_digital_e_t START_OUTTAKE = pros::E_CONTROLLER_DIGITAL_L2;
+const pros::controller_digital_e_t START_OUTTAKE = pros::E_CONTROLLER_DIGITAL_UP;
+const pros::controller_digital_e_t INTAKE_OVERRIDE = pros::E_CONTROLLER_DIGITAL_Y;
+const pros::controller_digital_e_t SPIN_ROLLER = pros::E_CONTROLLER_DIGITAL_L2;
 
-void intake() {
-    roller.move(127);
-}
-
+//runs intake for the given amount of time
 void intake(int mseconds) {
     roller.move(127);
     pros::delay(mseconds);
@@ -18,26 +18,33 @@ void intake(int mseconds) {
 void spinRoller(int c) {
   int color = (int) optRoller.get_hue();
 
-  //1: want red, 2: want blue
-  if(c == 1) {
-    while(color < 20) {
-      roller.move(100);
-      pros::delay(10);
-      color = (int) optRoller.get_hue();
-    }
-    roller.move(-75);
-    pros::delay(10);
-    roller.move(0);
-  } else {
-    while(color < 20) {
-      roller.move(100);
-      color = (int) optRoller.get_hue();
-      pros::delay(10);
-    }
-    roller.move(-75);
-    pros::delay(10);
-    roller.move(0);
-  }  
+    //1: want red, 2: want blue
+    if(c == 1) {
+      while(color <= 20) {
+        roller.move(90);
+        pros::delay(10);
+        color = (int) optRoller.get_hue();
+        // if (!(color < 30 /*red*/ || (color > 170 && color < 250) /*blue*/)) {
+        //   break;
+        // }
+      }
+      roller.move(-75);
+      pros::delay(25);
+      roller.move(0);
+    } else {
+      while(color > 20) {
+        roller.move(90);
+        color = (int) optRoller.get_hue();
+        // if (!(color < 30 /*red*/ || (color > 170 && color < 250) /*blue*/)) {
+        //   break;
+        // }
+        pros::delay(10);
+      }
+      roller.move(-75);
+      pros::delay(25);
+      roller.move(0);
+    } 
+  
 }
 
 bool runRollerBtn = false;
@@ -50,11 +57,11 @@ bool startRollerTask = true;
 void operateRoller(void*) {
 
   while (true) {
-    if (master.get_digital(START_INTAKE) && !isRollerBtnPressed) {
+    if (master.get_digital(START_INTAKE) && !isRollerBtnPressed && cataPrime.get_value()) {
       isRollerBtnPressed = true;
       if (!isRollerRunning) {
         // intake
-        intake();
+        roller.move(127);
         isRollerRunning = true;
       }
       else {
@@ -63,10 +70,27 @@ void operateRoller(void*) {
         isRollerRunning = false;
       }
     }
-    else if (!(master.get_digital(START_INTAKE)) && isRollerBtnPressed) {
+    else if (master.get_digital(INTAKE_OVERRIDE) && !isRollerBtnPressed) {
+      isRollerBtnPressed = true;
+      if (!isRollerRunning) {
+        // intake
+        roller.move(127);
+        isRollerRunning = true;
+      }
+      else {
+        // stop intake
+        roller.move(0);
+        isRollerRunning = false;
+      }
+    }
+    else if (!(master.get_digital(START_INTAKE)) && !(master.get_digital(INTAKE_OVERRIDE)) && isRollerBtnPressed) {
       isRollerBtnPressed = false;
     }
     // start outtake
+    else if (master.get_digital(SPIN_ROLLER)) {
+      isRollerRunning = false;
+      roller.move(-60);
+    }
     else if (master.get_digital(START_OUTTAKE)) {
       isRollerRunning = false;
       roller.move(-90);

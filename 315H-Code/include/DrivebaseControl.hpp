@@ -6,10 +6,15 @@
 class Drivebase {
     public:
         Drivebase(double gearRat, double degrees);
-        void calculatePower();
-        void turnPID(int desiredTurnValue, int speed);
 
-        void driveDistance(bool forward, int distance, int degrees);
+        void resetEncoders();
+        double getAverageEncoderValue();  
+        
+        void turnPID(int desiredTurnValue, int speed);
+        void driveDistance(bool forward, int distance, int degrees, int minSpeed);
+
+        void calculatePower();
+        void goForTime(int speed, int msec);
 
         pros::Motor_Group *motorArray[2] = {&rightDrive, &leftDrive};
         int previousLPower = 0;

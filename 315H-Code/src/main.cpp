@@ -2,8 +2,8 @@
 #include "AutonPrograms.hpp"
 #include "pros/llemu.hpp"
 
-Drivebase drivebase(0.5, 25/*replace*/);
-
+Drivebase drivebase(0.5, 35.16/*replace*/);
+bool teleop;
 
 /**
  * A callback function for LLEMU's center button.
@@ -69,11 +69,16 @@ void competition_initialize() {}
  * from where it left off.
  */ 
 void autonomous() {
+	//soloWinPointRed();
 	
-  //imu.set0();
-  //runControllerPrintTask();
-  //soloWinPointRed();
-  soloWinPointBlue();
+	//soloWinPointHalfBlue();
+	//spinRollerRed();
+	spinRollerBlue();
+	//spinRollerBlue();
+
+	//soloWinPointBlue();
+	//farRollerBlue();
+	
 /*
   switch (autonSelected)
   {
@@ -114,13 +119,14 @@ void autonomous() {
 void opcontrol() {
 	//pros::Motor left_mtr(1);
 	//pros::Motor right_mtr(2);
-
+	teleop = true;
 	//run roller task
-	//prime(400); //remove once ratchet is attached
 	runRollerTask();
 	runExpanderTask();
 	runCataTask();
 	pros::lcd::initialize();
+	prime(300); //remove once ratchet is attached
+
 	while (true) {
 		
 		//move drivebase

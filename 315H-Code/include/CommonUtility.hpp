@@ -9,9 +9,9 @@
 
 //------------------------------------------------------------------------------
 
-int slewControl (int targetPower, int currentPower, int accelCap);
-int slewControl(pros::Motor *motor, int targetPower, int previousPower, int accelCap);
-int slewControl(pros::Motor *motor, int targetPower, int previousPower, double accelPercent);
+//int slewControl (int targetPower, int currentPower, int accelCap);
+//int slewControl(pros::Motor *motor, int targetPower, int previousPower, int accelCap);
+//int slewControl(pros::Motor *motor, int targetPower, int previousPower, double accelPercent);
 
 int sgn (int value);
 int convertVoltage(int currentVoltage);

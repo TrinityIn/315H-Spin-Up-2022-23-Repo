@@ -1,7 +1,7 @@
 #ifndef ROLLER_CONTROL_HPP
 #define ROLLER_CONTROL_HPP
 
-void intake();
+//void intake();
 void intake(int mseconds);
 void runRollerTask();
 void spinRoller(int c);

@@ -3,7 +3,7 @@
 #include "pros/motors.hpp"
 #include "pros/rtos.hpp"
 
-#define SLEW_RATE 2000
+#define SLEW_RATE 1600
 #define MAX_VOLTAGE 12000
 #define LEFT_Y pros::E_CONTROLLER_ANALOG_LEFT_Y
 #define RIGHT_X pros::E_CONTROLLER_ANALOG_RIGHT_X
@@ -13,75 +13,44 @@ Drivebase::Drivebase(double gearRat, double degrees) {
     encoderPerInch = degrees;
 }
 
-
-void Drivebase::driveDistance(bool forward, int distance, int degrees){
-    
-    double encoderDistance = distance * encoderPerInch;
-    
-    while(distance ) {
-        leftDrive.move(0);
-        rightDrive.move(0);
-    }
+void Drivebase::resetEncoders() {
+    leftDrive.tare_position();
+    rightDrive.tare_position();
 }
 
-/*
-void Drivebase::autoTurnPID(double degrees, int maxSpeed)
-{
-  float degreesX10 = 10 * degrees;
-  int direction = sgn(degreesX10-imu.getValue());
-  float margin = fabs(degreesX10 - imu.getValue()) / 4.0;
-
-  // PID variables
-  float kP = 0.4;
-  float kD = 0.75; // .75
-  int counter = 0;
-
-  // acceleration
-  int setSpeed = minSpeed;
-  while (setSpeed < maxSpeed/2)
-  {
-    //autoTurnCalibrate(setSpeed * direction);
-    setSpeed += progAccelCap;
-
-    pros::delay(10);
-  }
-
-  // use PID for the rest
-  double currentDegrees = imu.getValue();
-  double error = degreesX10 - currentDegrees;
-  double previousError = degreesX10 - currentDegrees;
-  double derivative = 0;
-  int output;
-
-  while (counter < turningCounter)
-  {
-    // Final Output
-    output = kP * error + kD * derivative;
-    if (abs(output) > maxSpeed) {
-      output = maxSpeed * sgn(output);
+double Drivebase::getAverageEncoderValue() {
+    double sum = 0;
+    std::vector<double> leftVector = leftDrive.get_positions();
+    std::vector<double> rightVector = rightDrive.get_positions();
+    for (int i = 0; i < leftVector.size(); i++) {
+        sum += leftVector.at(i) + rightVector.at(i);
     }
 
+    return sum / (leftDrive.get_positions().size() * 2);
+}
 
-    pros::delay(10);
+void Drivebase::driveDistance(bool forward, int distance, int degrees, int minSpeed){
+    
+    //constants
+    double turnP = 0.4;
+    
+    double encoderDistance = distance * encoderPerInch/(gearRatio);
+    double rotationalError = 0;
+    
+    resetEncoders();
+    pros::lcd::clear();
 
-    currentDegrees = imu.getValue();
-    error = degreesX10 - currentDegrees;
-    derivative = error - previousError;
-    previousError = error;
+    //forward only
+    while(getAverageEncoderValue() < encoderDistance && !teleop) {
+        pros::lcd::print(0, "Encoder values: %d", getAverageEncoderValue());
+        rotationalError = imu.getValue() - (degrees * 10);
+        leftDrive.move(fmax(minSpeed, minSpeed - rotationalError * turnP));
+        rightDrive.move(fmax(minSpeed, minSpeed + rotationalError * turnP));
+    }
+    leftDrive.move(0);
+    rightDrive.move(0);
 
-    // checks if derivative is small enough to increase the counter
-    if (fabs(derivative) < turningDerivativeRange && fabs(error) < margin)
-    //if (fabs(error) < margin && isMoving(1))
-      counter++;
-    // if turnCanUseError then if error is small enough then exit the loop
-    else if (turnCanUseError && fabs(error) < 10)
-      break;
-    else
-      counter = 0;
-  }
-
-  setWheelSpeed(0);
-} */
+}
 
 void Drivebase::turnPID(int desiredTurnValue, int speed) {
     //imu.reset();
@@ -119,10 +88,7 @@ void Drivebase::turnPID(int desiredTurnValue, int speed) {
 
         pros::lcd::clear();
         //pros::lcd::print(1,"%d", dugcount);
-        pros::lcd::print(3,"current heading: %.2f", currentHeading);
-        pros::lcd::print(4,"imu value: %0.2f", imu.getValue());
-        pros::lcd::print(5,"error/10%0.2f", error/10);
-        pros::lcd::print(6,"sentinel: %d", sentinel);
+        
 
         //Proportional
         error = desiredTurnValue - currentHeading;
@@ -154,6 +120,11 @@ void Drivebase::turnPID(int desiredTurnValue, int speed) {
             sentinel = 1;
             pros::lcd::print(6,"sentinel: %d", sentinel);
         }
+
+        pros::lcd::print(3,"current heading: %.2f", currentHeading);
+        pros::lcd::print(4,"imu value: %0.2f", imu.getValue());
+        pros::lcd::print(5,"error/10%0.2f", error/10);
+        pros::lcd::print(6,"sentinel: %d", sentinel);
 
     } while(sentinel == 0); //fabs(error) > 5
 
@@ -223,6 +194,13 @@ int Drivebase::getTurnPower(int turnInput) {
     }
 }
 
+void Drivebase::goForTime(int speed, int msec) {
+    leftDrive.move(speed);
+    rightDrive.move(speed);
+    pros::delay(msec);
+    leftDrive.move(0);
+    rightDrive.move(0);
+}
 // void runDrivebaseTask() {
 
 // }

@@ -85,6 +85,7 @@ void opcontrol(void);
  */
 //#include <iostream>
 extern Drivebase drivebase;
+extern bool teleop;
 
 #endif
 

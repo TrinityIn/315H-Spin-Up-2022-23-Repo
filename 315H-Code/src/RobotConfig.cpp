@@ -31,6 +31,8 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 void init_sensors() {
     pros::delay(3000);
+    leftDrive.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
+    rightDrive.set_brake_modes(pros::E_MOTOR_BRAKE_HOLD);
     return;
 }
 

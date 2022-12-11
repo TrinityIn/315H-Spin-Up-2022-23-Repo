@@ -107,69 +107,69 @@ Why it works:
 -  watts is different from the actual unit of power. voltage solves this issue.
 */
 // -----------------------------------------------------------------------------
-int slewControl (int targetPower, int currentPower, int accelCap)
-{
-	// Returns the new motor value based on current power and the target power
-  int output = targetPower;
-  if (currentPower < targetPower)
-  {
-    if (targetPower - currentPower > accelCap) // If you're behind in "climbing up"
-    {
-      output = currentPower + accelCap;
-    }
-  }
-  else
-  {
-  	if (currentPower - targetPower > accelCap)  // If you're behind in "climbing down"
-    {
-      output = currentPower - accelCap;
-    }
-  }
-  if (output > 127)
-  {
-  	output =  127;
-  }
-  if (output < -127)
-  {
-  	output = -127;
-  }
+// int slewControl (int targetPower, int currentPower, int accelCap)
+// {
+// 	// Returns the new motor value based on current power and the target power
+//   int output = targetPower;
+//   if (currentPower < targetPower)
+//   {
+//     if (targetPower - currentPower > accelCap) // If you're behind in "climbing up"
+//     {
+//       output = currentPower + accelCap;
+//     }
+//   }
+//   else
+//   {
+//   	if (currentPower - targetPower > accelCap)  // If you're behind in "climbing down"
+//     {
+//       output = currentPower - accelCap;
+//     }
+//   }
+//   if (output > 127)
+//   {
+//   	output =  127;
+//   }
+//   if (output < -127)
+//   {
+//   	output = -127;
+//   }
 
-  return output;
-}
+//   return output;
+// }
 
-int slewControl(pros::Motor *motor, int targetPower, int previousPower, int accelCap)
-{
-  int output = targetPower;
+// int slewControl(pros::Motor *motor, int targetPower, int previousPower, int accelCap)
+// {
+//   int output = targetPower;
 
-  if (abs(targetPower-previousPower) > accelCap)
-  {
-    output = previousPower + (accelCap*sgn(targetPower-previousPower));
-  }
+//   if (abs(targetPower-previousPower) > accelCap)
+//   {
+//     output = previousPower + (accelCap*sgn(targetPower-previousPower));
+//   }
 
-  (*motor).move_voltage(output);
+//   (*motor).move_voltage(output);
 
-  //pros::lcd::print(0, "Target: %d Current: %d",targetPower,previousPower);
-  return output;
-}
+//   //pros::lcd::print(0, "Target: %d Current: %d",targetPower,previousPower);
+//   return output;
+// }
 
-int slewControl(pros::Motor *motor, int targetPower, int previousPower, double accelPercent)
-{
-  int output = targetPower;
-  int difference = targetPower-previousPower;
-  int cap = abs(previousPower) * accelPercent;
-  if (cap == 0)
-    cap = 1000;
+// int slewControl(pros::Motor *motor, int targetPower, int previousPower, double accelPercent)
+// {
+//   int output = targetPower;
+//   int difference = targetPower-previousPower;
+//   int cap = abs(previousPower) * accelPercent;
+//   if (cap == 0)
+//     cap = 1000;
 
-  if (abs(difference) > cap)
-  {
-    output = previousPower + (cap*sgn(difference));
-  }
+//   if (abs(difference) > cap)
+//   {
+//     output = previousPower + (cap*sgn(difference));
+//   }
 
-  (*motor).move_voltage(output);
+//   (*motor).move_voltage(output);
 
-  //pros::lcd::print(0, "Target: %d Current: %d",targetPower,previousPower);
-  return output;
-}
+//   //pros::lcd::print(0, "Target: %d Current: %d",targetPower,previousPower);
+//   return output;
+// }
 
 //-------------------------------------------------------------------------------------------
 
