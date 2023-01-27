@@ -13,7 +13,7 @@ extern pros::Motor leftTop;
 extern pros::Motor leftBottom;
 extern pros::Motor_Group leftDrive;
 
-extern pros::Motor catapult;
+extern pros::Motor puncher;
 extern pros::Motor roller;
 
 //sensors
@@ -29,6 +29,7 @@ extern DistanceSensor distanceFront;
 extern pros::ADIDigitalIn cataPrime;
 
 //pneumatics
+extern pros::ADIDigitalOut puncherRelease;
 extern pros::ADIDigitalOut leftExpander;
 
 //controllers

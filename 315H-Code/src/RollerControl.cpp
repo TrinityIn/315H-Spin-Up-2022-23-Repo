@@ -57,7 +57,7 @@ bool startRollerTask = true;
 void operateRoller(void*) {
 
   while (true) {
-    if (master.get_digital(START_INTAKE) && !isRollerBtnPressed && cataPrime.get_value()) {
+    if (master.get_digital(START_INTAKE) && !isRollerBtnPressed) {
       isRollerBtnPressed = true;
       if (!isRollerRunning) {
         // intake
@@ -89,11 +89,11 @@ void operateRoller(void*) {
     // start outtake
     else if (master.get_digital(SPIN_ROLLER)) {
       isRollerRunning = false;
-      roller.move(-60);
+      roller.move(-90);
     }
     else if (master.get_digital(START_OUTTAKE)) {
       isRollerRunning = false;
-      roller.move(-90);
+      roller.move_voltage(-12000);
     }
     // stop intake
     else if (!isRollerRunning) {

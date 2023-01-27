@@ -123,9 +123,9 @@ void opcontrol() {
 	//run roller task
 	runRollerTask();
 	runExpanderTask();
-	runCataTask();
+	runPunchTask();
 	pros::lcd::initialize();
-	prime(300); //remove once ratchet is attached
+	//prime(300); //remove once ratchet is attached
 
 	while (true) {
 		

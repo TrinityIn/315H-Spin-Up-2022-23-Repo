@@ -8,6 +8,7 @@ bool startExpanderTask = true;
 void release() {
     state = !state;
     leftExpander.set_value(state);
+    puncherRelease.set_value(state);
     pros::delay(10);
     return;
 }

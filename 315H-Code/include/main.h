@@ -39,7 +39,7 @@
 #include "AutonPrograms.hpp"
 #include "DisplayUtility.hpp"
 #include "CommonUtility.hpp"
-#include "CatapultControl.hpp"
+#include "PuncherControl.hpp"
 #include "DrivebaseControl.hpp"
 #include "ExpanderControl.hpp"
 #include "RollerControl.hpp"
