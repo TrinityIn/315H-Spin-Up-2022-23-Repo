@@ -3,7 +3,7 @@
 #include "pros/motors.hpp"
 #include "pros/rtos.hpp"
 
-#define SLEW_RATE 1600
+#define SLEW_RATE 900
 #define MAX_VOLTAGE 12000
 #define LEFT_Y pros::E_CONTROLLER_ANALOG_LEFT_Y
 #define RIGHT_X pros::E_CONTROLLER_ANALOG_RIGHT_X

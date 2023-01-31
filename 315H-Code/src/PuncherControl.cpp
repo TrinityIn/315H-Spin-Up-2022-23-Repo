@@ -12,20 +12,26 @@ void prime() {
     int target = 0;
     switch(phase) {
         case 1:
-            target = 2500;
+            target = 3850;
             break;
         case 2:
-            target = 3500;
+            target = 4300;
             break;
         case 3:         
-            target = 7500;
+            target = 6500;
             break;
     }
-
-    while (puncher.get_position() < target) {
+    double prevPosition = puncher.get_position();
+    while (puncher.get_position() < target && !(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1))) {
         puncher.move_voltage(12000);
         //down = cataPrime.get_value();
+        double prevPosition = puncher.get_position();
         pros::delay(10);
+        //pros::lcd::print(0, "%.3f", fabs(puncher.get_position() - prevPosition));
+        // if (fabs(puncher.get_position() - prevPosition) < 0.01) {
+        //     break;
+        // }
+        
     }
     //catapult.move(-50);
     //pros::delay(50);
