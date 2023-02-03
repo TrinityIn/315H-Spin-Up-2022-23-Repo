@@ -2,7 +2,7 @@
 #include "AutonPrograms.hpp"
 #include "pros/llemu.hpp"
 
-Drivebase drivebase(0.5, 35.16/*replace*/);
+Drivebase drivebase(4.0/6, 35.16/*replace*/);
 bool teleop;
 
 /**

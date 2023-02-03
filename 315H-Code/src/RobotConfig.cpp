@@ -25,7 +25,7 @@ InertialSensor imu(14, 91.56/90.0);
 
 //pneumatics
 pros::ADIDigitalOut puncherRelease('b');
-pros::ADIDigitalOut leftExpander('a');
+pros::ADIDigitalOut leftExpander('h');
 
 
 //controllers

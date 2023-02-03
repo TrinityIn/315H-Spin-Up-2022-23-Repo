@@ -139,7 +139,8 @@ void soloWinPointBlue()
     drivebase.turnPID(45, 90);
     drivebase.driveDistance(true, 67 /*tune*/, 45, 60);
     drivebase.turnPID(-90, 90);
-    prime(1500);
+    phase = 3;
+    prime();
     fire();
     //intake();
     fire();
