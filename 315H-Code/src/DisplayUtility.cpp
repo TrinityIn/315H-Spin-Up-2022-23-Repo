@@ -57,7 +57,7 @@ const char *labelText[] =
 	"", "", "", "",
   "", "", "", "",
   // other programs
-	"Skills", "", "", "",
+	"Skills Auton", "", "", "",
   "", "", "", "",
   "", "", "", ""
 };
