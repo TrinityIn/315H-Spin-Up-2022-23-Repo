@@ -9,7 +9,7 @@ void spinRoller(int c);
 extern bool runRollerBtn;
 extern bool stopRollerBtn;
 extern bool isRollerRunning;
-extern bool isRollerButtonPressed;
+extern bool isRollerBtnPressed;
 
 
 #endif

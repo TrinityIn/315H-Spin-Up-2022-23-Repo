@@ -40,12 +40,22 @@ void Drivebase::driveDistance(bool forward, int distance, int degrees, int minSp
     resetEncoders();
     pros::lcd::clear();
 
+    if (forward) {
     //forward only
-    while(getAverageEncoderValue() < encoderDistance && !teleop) {
-        pros::lcd::print(0, "Encoder values: %d", getAverageEncoderValue());
-        rotationalError = imu.getValue() - (degrees * 10);
-        leftDrive.move(fmax(minSpeed, minSpeed - rotationalError * turnP));
-        rightDrive.move(fmax(minSpeed, minSpeed + rotationalError * turnP));
+        while(getAverageEncoderValue() < encoderDistance && !teleop) {
+            pros::lcd::print(0, "Encoder values: %d", getAverageEncoderValue());
+            rotationalError = imu.getValue() - (degrees * 10);
+            leftDrive.move(fmax(minSpeed, minSpeed - rotationalError * turnP));
+            rightDrive.move(fmax(minSpeed, minSpeed + rotationalError * turnP));
+        }
+    }
+    else {
+        while(getAverageEncoderValue() > (encoderDistance * -1) && !teleop) {
+            pros::lcd::print(0, "Encoder values: %d", getAverageEncoderValue());
+            rotationalError = imu.getValue() - (degrees * 10);
+            leftDrive.move(fmin(-minSpeed, -minSpeed - rotationalError * turnP));
+            rightDrive.move(fmin(-minSpeed, -minSpeed + rotationalError * turnP));
+        }
     }
     leftDrive.move(0);
     rightDrive.move(0);
@@ -157,7 +167,7 @@ void Drivebase::calculatePower() {
 
     pros::lcd::print(2, "verticalPower: %d", verticalPower);
     pros::lcd::print(3, "turnPower: %d", turnPower);
-    pros::lcd::print(4, "state: %d", state);
+    pros::lcd::print(4, "state: %d", expanderState);
 
 }
 

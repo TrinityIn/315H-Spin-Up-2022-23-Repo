@@ -100,17 +100,17 @@ void operateRoller(void*) {
       roller.move(0);
     }
 
-    // virtual buttons
-    // if (runRollerBtn) {
-    //   intake();
-    //   isRollerRunning = true;
-    //   runRollerBtn = false;
-    // }
-    // if (stopRollerBtn) {
-    //   roller.move(0);
-    //   isRollerRunning = false;
-    //   stopRollerBtn = false;
-    // }
+    //virtual buttons
+    if (runRollerBtn) {
+      roller.move(120);
+      isRollerRunning = true;
+      runRollerBtn = false;
+    }
+    if (stopRollerBtn) {
+      roller.move(0);
+      isRollerRunning = false;
+      stopRollerBtn = false;
+    }
 
     //pros::lcd::print(0, "roller");
     pros::delay(10);

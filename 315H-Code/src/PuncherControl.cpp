@@ -1,7 +1,11 @@
 #include "main.h"
 #include "pros/misc.h"
 
-bool shootBtn = true;
+#define NUM_PHASE 3
+
+bool shootBtn = false;
+bool farPrimeBtn = false;
+bool shootBtnPressed = false;
 bool phaseBtn = false;
 int phase = 0; //0 is nothing, 1 is near goal, 2 is outside barrier, 3 is halfcourt/max
 bool startPunchTask = true;
@@ -38,14 +42,21 @@ void prime() {
     puncher.move(3);
     return;
 }
+void prime(int desPhase) {
+    if (desPhase > 0 && desPhase <= NUM_PHASE) 
+        phase = desPhase;
+    else 
+        phase = 1;
+
+    prime();
+}
 
 void fire() {
-    puncher.tare_position();
     puncher.move(0);
     roller.move(0);
     puncherRelease.set_value(true);
     //catapult.move(30);
-    pros::delay(300);
+    pros::delay(250);
     puncherRelease.set_value(false);
     //pros::lcd::print(0, "fire");    
     pros::delay(10);
@@ -54,8 +65,8 @@ void fire() {
 
 void operatePuncher(void*) {
     while (true) {
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && !shootBtn) {
-            shootBtn = true;
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && !shootBtnPressed) {
+            shootBtnPressed = true;
             //checks if the catapult starts from a primed position
             fire();
             puncher.tare_position();
@@ -65,18 +76,30 @@ void operatePuncher(void*) {
         // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
         //     puncher.move(127);
         // }
-        else if (!shootBtn) {
+        else if (!shootBtnPressed) {
             puncher.move(5);
         }
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && !phaseBtn) {
             phaseBtn = true;
-            phase = std::min(phase + 1, 3);
+            phase = std::min(phase + 1, NUM_PHASE);
             prime();
         }
         else if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
             phaseBtn = false;
         }
-        shootBtn = false;
+        shootBtnPressed = false;
+
+
+        //virtual btns
+        if (shootBtn) {
+            fire();
+            prime();
+            shootBtn = false;
+        }
+        if (farPrimeBtn) {
+            prime(NUM_PHASE);
+            farPrimeBtn = false;
+        }
         
         pros::delay(10);
     }
