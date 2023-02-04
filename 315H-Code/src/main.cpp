@@ -78,12 +78,19 @@ void autonomous() {
 
 	//soloWinPointBlue();
 	//farRollerBlue();
-	pros::lcd::print(2, "Auton selected: %d", autonSelected);
-  	/*switch (autonSelected)
+	//pros::lcd::initialize();
+	//pros::lcd::print(2, "Auton selected: %d", autonSelected);
+	switch (autonSelected)
   	{
+		/*case -1:
+		pros::lcd::initialize();
+		pros::lcd::print(2, "Auton selected: %d", autonSelected);
+		*/
 		// red side autons
 		case 1:
-		soloWinPointRed();
+		pros::lcd::initialize();
+		pros::lcd::print(2, "Auton selected: %d", autonSelected);
+		//soloWinPointRed();
 		break;
 		case 2:
 		nearSideRed9();
@@ -170,7 +177,7 @@ void autonomous() {
 		break;
 		default:
 		break;
-  	}*/
+  	}
 }
 
 /**

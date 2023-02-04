@@ -18,7 +18,7 @@ pros::Motor puncher(12, pros::E_MOTOR_GEARSET_36);
 pros::Motor roller(16, pros::E_MOTOR_GEARSET_06);
 
 //sensors
-pros::Optical optRoller(21);
+pros::Optical optRoller(17);
 InertialSensor imu(14, 91.56/90.0);
 //pros::IMU imu(4);
 //pros::ADIDigitalIn cataPrime('');
