@@ -15,7 +15,7 @@ extern "C" {
  *********************/
 #ifdef LV_CONF_INCLUDE_SIMPLE
 #include "lv_conf.h"
-else
+#else
 #include "display/lv_conf.h"
 #endif
 

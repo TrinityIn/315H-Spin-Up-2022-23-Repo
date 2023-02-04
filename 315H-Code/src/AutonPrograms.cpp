@@ -264,9 +264,21 @@ void spinRollerBlue(){
     drivebase.goForTime(50, 250);
 }
 
+void nearSideBlue9() {
+    //nothing here yet
+}
+
+void farSideBlue5() {
+    //nothing here yet
+}
+
 void elimPrepBlue() {
     spinRollerBlue();
     prime(300);
     fire();
 
+}
+
+void autonSkills() {
+    //nothing here yet
 }

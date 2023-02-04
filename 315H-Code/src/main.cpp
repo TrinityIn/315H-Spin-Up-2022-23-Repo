@@ -72,34 +72,104 @@ void autonomous() {
 	
 	//soloWinPointHalfBlue();
 	//spinRollerRed();
-	spinRollerBlue();
+	//spinRollerBlue();
 	//spinRollerBlue();
 
 	//soloWinPointBlue();
 	//farRollerBlue();
 	
-/*
   switch (autonSelected)
   {
     // red side autons
     case 1:
       soloWinPointRed();
       break;
-    
+    case 2:
+      nearSideRed9();
+      break;
+    case 3:
+      farSideRed5();
+      break;
+    case 4:
+      spinRollerRed();
+      break;
+    case 5:
+      farRollerRed();
+      break;
+    case 6:
+      //getDoubleNeutralQualRedR(drivebase);
+      break;
+    case 7:
+      //getNeutralRedR(drivebase);
+      break;
+    case 8:
+      //swipeGoalRed(drivebase);
+      break;
+    case 9:
+      //rushNeutralLeftRed(drivebase);
+      break;
+    case 10:
+      //neutralLeftQualRed(drivebase);
+      break;
+    case 11:
+      //hookGoalRedL(drivebase);
+      break;
     // blue side autons
     case 1+NUM_SELECTION:
       soloWinPointBlue();
       break;
-    
+    case 2+NUM_SELECTION:
+      nearSideBlue9();
+      break;
+    case 3+NUM_SELECTION:
+      farSideBlue5();
+      break;
+    case 4+NUM_SELECTION:
+      spinRollerBlue();
+      break;
+    case 5+NUM_SELECTION:
+      farRollerBlue();
+      break;
+    case 6+NUM_SELECTION:
+      //getDoubleNeutralQualBlueR(drivebase);
+      break;
+    case 7+NUM_SELECTION:
+      //getNeutralBlueR(drivebase);
+      break;
+    case 8+NUM_SELECTION:
+      //swipeGoalBlue(drivebase);
+      break;
+    case 9+NUM_SELECTION:
+      //rushNeutralLeftBlue(drivebase);
+      break;
+    case 10+NUM_SELECTION:
+      //neutralLeftQualBlue(drivebase);
+      break;
+    case 11+NUM_SELECTION:
+      //hookGoalBlueL(drivebase);
+      break;
     // other programs
     case 1+NUM_SELECTION*2:
       // the skills program
-      soloWinPointRed();
+      autonSkills();
       break;
-    
+    case 2+NUM_SELECTION*2:
+      // program for debuging turning
+      //testTurn(drivebase);
+      break;
+    case 3+NUM_SELECTION*2:
+      // program for debuging movement
+      //testDistance(drivebase, 24);
+      break;
+    case 4+NUM_SELECTION*2:
+      break;
+    case 5+NUM_SELECTION*2:
+      break;
+    case 6+NUM_SELECTION*2:
+      break;
     default:
       break;
-  }*/
+  }
 }
 
 /**
