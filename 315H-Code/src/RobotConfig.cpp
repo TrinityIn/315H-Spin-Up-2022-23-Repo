@@ -8,7 +8,7 @@ pros::Motor rightTop(4, true);
 pros::Motor rightBottom(5);
 pros::Motor_Group rightDrive({rightBack, rightTop, rightBottom});
 
-pros::Motor leftBack(13, true);
+pros::Motor leftBack(19, true);
 pros::Motor leftTop(2);
 pros::Motor leftBottom(3, true);
 pros::Motor_Group leftDrive({leftBack, leftTop, leftBottom});

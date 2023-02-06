@@ -49,12 +49,12 @@ const char *labelText[] =
 {
   "FILLER TEXT",
   // red side autons
-  "Solo WP", "1 Roller", "", "",
-	"", "", "", "",
+  "Solo WP", "near Roll", "far shoot", "",
+	"far roll", "", "", "",
   "", "", "", "",
   // blue side autons
-  "Solo WP", "1 Roller", "", "",
-	"", "", "", "",
+  "Solo WP", "near Roll", "far shoot", "",
+	"far roll", "", "", "",
   "", "", "", "",
   // other programs
 	"Skills Auton", "", "", "",
@@ -106,9 +106,9 @@ static lv_res_t switch_to_Match(lv_obj_t *btn)
   }
 
   autonSelected = lv_obj_get_free_num(btn);
-
+  //master.print();
   setStyle(btn, 4);
-
+/*
   char *print = new char[strlen(labelText[autonSelected])+5];
 
   int side = (autonSelected-1)/NUM_SELECTION;
@@ -125,11 +125,12 @@ static lv_res_t switch_to_Match(lv_obj_t *btn)
   else if (side == 2)
   {
     strcpy(print, labelText[autonSelected]);
-  }
+  }*/
 
   //partner.clear_line(2);
   //pros::delay(100);
   //partner.print(2, 0, print);
+  //master.print()
 
 	return LV_RES_OK;
 }

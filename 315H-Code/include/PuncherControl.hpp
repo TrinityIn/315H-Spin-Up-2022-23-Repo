@@ -9,5 +9,6 @@ void runPunchTask();
 
 extern bool shootBtn;
 extern bool farPrimeBtn;
+extern bool twoDiscBtn;
 
 #endif

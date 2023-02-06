@@ -20,8 +20,8 @@ void spinRoller(int c) {
 
     //1: want red, 2: want blue
     if(c == 1) {
-      while(color <= 20) {
-        roller.move(90);
+      while(color <= 35) {
+        roller.move(120);
         pros::delay(10);
         color = (int) optRoller.get_hue();
         // if (!(color < 30 /*red*/ || (color > 170 && color < 250) /*blue*/)) {
@@ -32,7 +32,7 @@ void spinRoller(int c) {
       pros::delay(25);
       roller.move(0);
     } else {
-      while(color > 20) {
+      while(color > 35) {
         roller.move(90);
         color = (int) optRoller.get_hue();
         // if (!(color < 30 /*red*/ || (color > 170 && color < 250) /*blue*/)) {

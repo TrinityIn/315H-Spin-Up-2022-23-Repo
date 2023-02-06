@@ -3,8 +3,12 @@
 
 #define NUM_PHASE 3
 
+//virtual buttons
 bool shootBtn = false;
 bool farPrimeBtn = false;
+bool twoDiscBtn = false;
+
+//setup variables
 bool shootBtnPressed = false;
 bool phaseBtn = false;
 int phase = 0; //0 is nothing, 1 is near goal, 2 is outside barrier, 3 is halfcourt/max
@@ -16,7 +20,7 @@ void prime() {
     int target = 0;
     switch(phase) {
         case 1:
-            target = 3850;
+            target = 4000;
             break;
         case 2:
             target = 4300;
@@ -26,7 +30,7 @@ void prime() {
             break;
     }
     double prevPosition = puncher.get_position();
-    while (puncher.get_position() < target && !(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1))) {
+    while (puncher.get_position() < target && !(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) && !shootBtn) {
         puncher.move_voltage(12000);
         //down = cataPrime.get_value();
         double prevPosition = puncher.get_position();
@@ -93,12 +97,17 @@ void operatePuncher(void*) {
         //virtual btns
         if (shootBtn) {
             fire();
-            prime();
+            phase = 1;
             shootBtn = false;
+            prime();
         }
         if (farPrimeBtn) {
             prime(NUM_PHASE);
             farPrimeBtn = false;
+        }
+        if (twoDiscBtn) {
+            prime(2);
+            twoDiscBtn = false;
         }
         
         pros::delay(10);

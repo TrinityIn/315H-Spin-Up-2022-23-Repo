@@ -18,7 +18,7 @@ void operateExpander(void*) {
     int startTeleOp = pros::millis();
     while (true) {
         //timer set at start of tele-op to prevent early expansion
-        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A) && !expandBtnPressed && (pros::millis() - startTeleOp > 95)) {
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A) && !expandBtnPressed && (pros::millis() - startTeleOp > 95000)) {
             expandBtnPressed = true;
             release();
         }

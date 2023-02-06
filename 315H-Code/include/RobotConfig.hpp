@@ -2,7 +2,6 @@
 #define _ROBOTCONFIG_HPP_
 
 //motors
-#include "CommonUtility.hpp"
 extern pros::Motor rightBack;
 extern pros::Motor rightTop;
 extern pros::Motor rightBottom;

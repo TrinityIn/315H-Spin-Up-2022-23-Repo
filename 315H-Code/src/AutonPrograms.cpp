@@ -10,30 +10,71 @@ const int CUTOFF_TIME = 11200;
  * Red side autons
  */
 void nearSideRed9() {
-    runRollerTask();
+    int testTimer = pros::millis();
+    //shooting
     runPunchTask();
-    
-    //spin roller
+    //runRollerTask();
+    puncher.tare_position();
     farPrimeBtn = true;
-    spinRollerRed();
-
-    //fire preload discs
-    drivebase.driveDistance(true, 3, 0, 45);
+    pros::delay(2000);
+    roller.move(120);
+    pros::delay(1500);
+    roller.move(0);
     shootBtn = true;
     pros::delay(500);
-    farPrimeBtn = true;
+
+    //spin roller
+    leftDrive.move(-40);
+    rightDrive.move(-40);
+    pros::delay(800);
+    roller.move(50); //1 for want red
+    //intake(400);
+    pros::delay(500);
+    roller.move(0);
+    drivebase.goForTime(40, 200); 
+    
+    
+    //pros::delay(5000); 
+    //return;
+    // runRollerTask();
+    // runPunchTask();
+
+    // roller.move(120);
+    
+    // //spin roller
+    // farPrimeBtn = true;
+    // optRoller.set_led_pwm(75);
+    // spinRollerRed();
+    // pros::delay(1000);
+    // roller.move(0);
+
+    // //fire preload discs
+    // drivebase.driveDistance(true, 3, 0, 45);
+    // shootBtn = true;
+    // pros::delay(500);
+    // farPrimeBtn = true;
 
     //intake three discs
-    drivebase.turnPID(45, 90);
-    roller.move(120);
-    drivebase.driveDistance(true, 56, 45, 60);
+    puncher.tare_position();
+    twoDiscBtn = true;
+    drivebase.turnPID(58, 90);
+    roller.move(127);
+    drivebase.driveDistance(true, 24, 58, 70);
+    pros::delay(500);
+    drivebase.driveDistance(true, 37, 58, 50);
+    pros::delay(100);
     roller.move(0);
     
     //turn 90 degrees and shoot discs
-    drivebase.turnPID(-90, 90);
+    drivebase.turnPID(-103, 90);
+    drivebase.driveDistance(false, 3, -103, 30);
+    pros::delay(100);
+    roller.move(0);
     shootBtn = true;
-    
-    return;
+    pros::delay(500);
+    pros::lcd::clear();
+    pros::lcd::print(0, "%d", pros::millis() - testTimer);
+    // return;
 }
 
 void soloWinPointRed()
@@ -50,30 +91,39 @@ void soloWinPointRed()
     */
 
     //spin roller until color sensor detects blue
-    spinRollerRed();
-    farPrimeBtn = true;
+    //while (!teleop) {
+        
+        //spin roller
+        farPrimeBtn = true;
+        optRoller.set_led_pwm(75);
+        spinRollerRed();
+        roller.move(120);
+        pros::delay(1000);
+        roller.move(0);
 
-    //fire preload discs
-    drivebase.driveDistance(true, 3, 0, 45);
-    shootBtn = true;
-    farPrimeBtn = true;
+        //fire preload discs
+        drivebase.driveDistance(true, 3, -2, 45);
+        shootBtn = true;
+        pros::delay(200);
+        farPrimeBtn = true;
 
-    //intake three discs
-    drivebase.turnPID(45, 90);
-    roller.move(120);
-    drivebase.driveDistance(true, 56, 45, 60);
-    roller.move(0);
+        //intake three discs
+        drivebase.turnPID(45, 90);
+        roller.move(120);
+        drivebase.driveDistance(true, 56, 45, 60);
+        roller.move(0);
+        
+        //turn 90 degrees and shoot discs
+        drivebase.turnPID(-90, 90);
+        shootBtn = true;
+
+        //score end roller
+        drivebase.turnPID(-90, 90);
+        drivebase.driveDistance(false, 56, -90, 40);
+        drivebase.turnPID(45, 90);
+        drivebase.driveDistance(false, 3, 45, 40);
+        spinRollerRed();
     
-    //turn 90 degrees and shoot discs
-    drivebase.turnPID(-90, 90);
-    shootBtn = true;
-
-    //score end roller
-    drivebase.turnPID(-90, 90);
-    drivebase.driveDistance(false, 56, 90, 40);
-    drivebase.turnPID(45, 90);
-    drivebase.driveDistance(false, 3, 45, 40);
-    spinRollerRed();
     return;
 
     // spinRollerRed();
@@ -113,46 +163,62 @@ void soloWinPointRed()
 }
 
 void farSideRed5() {
-    runRollerTask();
+    //runRollerTask();
     runPunchTask();
 
     //score preload
+    puncher.tare_position();
     farPrimeBtn = true;
-    drivebase.driveDistance(true, 12, 0, 60);
-    drivebase.turnPID(10, 90);
+    pros::delay(1200);
     shootBtn = true;
-    farPrimeBtn = true;
+    pros::delay(1000);
+    //farPrimeBtn = true;
 
     //intake 3 discs (ram with outtake, then slowly intake)
-    drivebase.driveDistance(false, 6, 10, 60);
-    drivebase.turnPID(-55, 90);
-    roller.move(-120);
-    drivebase.driveDistance(true, 12, -100, 80);
-    roller.move(0);
-    pros::delay(400);
-    roller.move(120);
-    drivebase.driveDistance(true, 12, -100, 40);
+    // drivebase.driveDistance(false, 6, 10, 60);
+    // drivebase.turnPID(-55, 90);
+    // roller.move(-120);
+    // drivebase.driveDistance(true, 12, -100, 80);
+    // roller.move(0);
+    // pros::delay(400);
+    // roller.move(120);
+    // drivebase.driveDistance(true, 12, -100, 40);
 
-    //turn and shoot
-    drivebase.turnPID(90, 90);
-    shootBtn = true;
+    // //turn and shoot
+    // drivebase.turnPID(90, 90);
+    // shootBtn = true;
 
     //score roller
-    drivebase.driveDistance(false, 6, 90, 50);
-    drivebase.turnPID(-90, 90);
-    drivebase.driveDistance(false, 56, -90, 60);
-    drivebase.turnPID(-45, 90);
-    drivebase.driveDistance(false, 6, -45, 40);
-    spinRollerRed();
+    //drivebase.driveDistance(false, 6, 90, 50);
+    drivebase.turnPID(-110, 80);
+    drivebase.driveDistance(false, 18, -110, 60);
+    drivebase.turnPID(90, 90);
+    //drivebase.driveDistance(false, 6, -45, 40);
+    //spinRollerRed();
+    leftDrive.move(-40);
+    rightDrive.move(-40);
+    pros::delay(1000);
+    roller.move(60); //1 for want red
+    //intake(400);
+    pros::delay(500);
+    roller.move(0);
+    drivebase.goForTime(40, 150); 
 
-    return;
-    
+    return; 
 }
 
 void farRollerRed(){
-    drivebase.driveDistance(true, 17, 0, 40);
-    drivebase.turnPID(-90,90);
-    spinRollerRed();
+    //optRoller.set_led_pwm(50);
+
+    drivebase.driveDistance(false, 18, 0, 40);
+    drivebase.turnPID(90,90);
+    leftDrive.move(-40);
+    rightDrive.move(-40);
+    spinRoller(1);
+    roller.move(50); //1 for want red
+    //intake(400);
+    pros::delay(500);
+    drivebase.goForTime(40, 300);
 
 }
 
@@ -242,13 +308,16 @@ void soloWinPointBlue()
 }
 
 void farRollerBlue(){
-    drivebase.driveDistance(true, 18, 0, 40);
-    drivebase.turnPID(-90,90);
+    //optRoller.set_led_pwm(50);
+    drivebase.driveDistance(false, 18, 0, 40);
+    drivebase.turnPID(90,90);
     leftDrive.move(-40);
     rightDrive.move(-40);
-    spinRoller(2); //1 for want red
+    pros::delay(800);
+    roller.move(50); //1 for want red
     //intake(400);
     pros::delay(500);
+    roller.move(0);
     drivebase.goForTime(40, 300);
 
 }
@@ -265,11 +334,114 @@ void spinRollerBlue(){
 }
 
 void nearSideBlue9() {
-    //nothing here yet
+    runPunchTask();
+    puncher.tare_position();
+    farPrimeBtn = true;
+    pros::delay(3000);
+    roller.move(120);
+    pros::delay(1500);
+    roller.move(0);
+    shootBtn = true;
+
+    
+    leftDrive.move(-40);
+    rightDrive.move(-40);
+    pros::delay(400);
+    roller.move(50); //2 for want blue
+    //intake(400);
+    pros::delay(500);
+    roller.move(0);
+    drivebase.goForTime(40, 300);   
 }
 
 void farSideBlue5() {
-    //nothing here yet
+    runRollerTask();
+    runPunchTask();
+
+    //score preload
+    puncher.tare_position();
+    farPrimeBtn = true;
+    pros::delay(2000);
+    roller.move(120);
+    pros::delay(2000);
+    roller.move(0);
+    pros::delay(100);
+    //drivebase.driveDistance(true, 12, 0, 60);
+    //drivebase.turnPID(3, 90);
+    shootBtn = true;
+    pros::delay(1000);
+    farPrimeBtn = true;
+
+    //intake 3 discs (ram with outtake, then slowly intake)
+    // drivebase.driveDistance(false, 6, 10, 60);
+    // drivebase.turnPID(-55, 90);
+    // roller.move(-120);
+    // drivebase.driveDistance(true, 12, -100, 80);
+    // roller.move(0);
+    // pros::delay(400);
+    // roller.move(120);
+    // drivebase.driveDistance(true, 12, -100, 40);
+
+    // //turn and shoot
+    // drivebase.turnPID(90, 90);
+    // shootBtn = true;
+
+    //score roller
+    //drivebase.driveDistance(false, 6, 90, 50);
+    drivebase.turnPID(-92, 90);
+    drivebase.driveDistance(false, 18, -92, 60);
+    drivebase.turnPID(90, 90);
+    //drivebase.driveDistance(false, 6, -45, 40);
+    //spinRollerRed();
+    leftDrive.move(-40);
+    rightDrive.move(-40);
+    pros::delay(400);
+    roller.move(50); //1 for want red
+    //intake(400);
+    pros::delay(500);
+    roller.move(0);
+    drivebase.goForTime(40, 300); 
+
+    return;
+    
+    // runRollerTask();
+    // runPunchTask();
+
+    // //score preload
+    // farPrimeBtn = true;
+    // drivebase.driveDistance(true, 12, 0, 60);
+    // drivebase.turnPID(10, 90);
+    // shootBtn = true;
+    // farPrimeBtn = true;
+
+    // //intake 3 discs (ram with outtake, then slowly intake)
+    // drivebase.driveDistance(false, 6, 10, 60);
+    // drivebase.turnPID(-55, 90);
+    // roller.move(-120);
+    // drivebase.driveDistance(true, 12, -100, 80);
+    // roller.move(0);
+    // pros::delay(400);
+    // roller.move(120);
+    // drivebase.driveDistance(true, 12, -100, 40);
+
+    // //turn and shoot
+    // drivebase.turnPID(90, 90);
+    // shootBtn = true;
+
+    // //score roller
+    // drivebase.driveDistance(false, 6, 90, 50);
+    // drivebase.turnPID(-90, 90);
+    // drivebase.driveDistance(false, 56, -90, 60);
+    // drivebase.turnPID(-45, 90);
+    // //drivebase.driveDistance(false, 6, -45, 40);
+    // //spinRollerRed();
+    // leftDrive.move(-40);
+    // rightDrive.move(-40);
+    // spinRoller(1);
+    // leftDrive.move(40);
+    // rightDrive.move(40);
+
+    // return;
 }
 
 void elimPrepBlue() {

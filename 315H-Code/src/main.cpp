@@ -1,6 +1,7 @@
 #include "main.h"
 #include "pros/llemu.h"
 #include "pros/llemu.hpp"
+#include "pros/motors.h"
 
 Drivebase drivebase(4.0/6, 35.16/*replace*/);
 bool teleop;
@@ -31,6 +32,7 @@ void initialize() {
 	//do NOT initialize LCD here, it will prevent GUI from displaying auton tabs
 	//pros::lcd::initialize();
 	//pros::lcd::set_text(1, "Hello PROS User!");
+	puncher.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 	init_sensors();
 	initializeGUI();
 
@@ -69,6 +71,8 @@ void competition_initialize() {}
  * from where it left off.
  */ 
 void autonomous() {
+	
+	//farRollerBlue();
 	//soloWinPointRed();
 	
 	//soloWinPointHalfBlue();
@@ -80,22 +84,21 @@ void autonomous() {
 	//farRollerBlue();
 	//pros::lcd::initialize();
 	//pros::lcd::print(2, "Auton selected: %d", autonSelected);
+	
 	switch (autonSelected)
   	{
-		/*case -1:
-		pros::lcd::initialize();
-		pros::lcd::print(2, "Auton selected: %d", autonSelected);
-		*/
+		//ORDER:
+		//1. Comp controller disabled
+		//2. Run program, select auton
+		//3. Enable comp controller in auton
 		// red side autons
 		case 1:
-		pros::lcd::initialize();
-		pros::lcd::print(2, "Auton selected: %d", autonSelected);
-		//soloWinPointRed();
+		soloWinPointRed();
 		break;
 		case 2:
 		nearSideRed9();
 		break;
-		case 3:
+		case 3:             
 		farSideRed5();
 		break;
 		case 4:
