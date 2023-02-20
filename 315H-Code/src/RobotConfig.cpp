@@ -3,23 +3,23 @@
 #include "pros/motors.h"
 
 //motors
-pros::Motor rightBack(15);
-pros::Motor rightTop(4, true);
-pros::Motor rightBottom(5);
+pros::Motor rightBack(5);
+pros::Motor rightTop(9, true);
+pros::Motor rightBottom(8);
 pros::Motor_Group rightDrive({rightBack, rightTop, rightBottom});
 
-pros::Motor leftBack(19, true);
-pros::Motor leftTop(2);
-pros::Motor leftBottom(3, true);
+pros::Motor leftBack(4, true);
+pros::Motor leftTop(7);
+pros::Motor leftBottom(6, true);
 pros::Motor_Group leftDrive({leftBack, leftTop, leftBottom});
 
 
-pros::Motor puncher(12, pros::E_MOTOR_GEARSET_36);
-pros::Motor roller(16, pros::E_MOTOR_GEARSET_06);
+pros::Motor puncher(2, pros::E_MOTOR_GEARSET_36);
+pros::Motor roller(10, pros::E_MOTOR_GEARSET_06);
 
 //sensors
 pros::Optical optRoller(17);
-InertialSensor imu(14, 91.56/90.0);
+InertialSensor imu(3, 91.56/90.0);
 //pros::IMU imu(4);
 //pros::ADIDigitalIn cataPrime('');
 

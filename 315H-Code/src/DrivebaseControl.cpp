@@ -70,7 +70,7 @@ void Drivebase::turnPID(int desiredTurnValue, int speed) {
     // settings
     double kP = 0.4;
     double kI = 0.00005;  
-    double kD = 0.75;
+    double kD = 0.85; //formerly 0.75
 
     // set desired value to parameter 
     desiredTurnValue *= 10;
@@ -136,7 +136,7 @@ void Drivebase::turnPID(int desiredTurnValue, int speed) {
         pros::lcd::print(5,"error/10%0.2f", error/10);
         pros::lcd::print(6,"sentinel: %d", sentinel);
 
-    } while(sentinel == 0); //fabs(error) > 5
+    } while(sentinel == 0 && !teleop); //fabs(error) > 5
 
     leftDrive.move(0);
     rightDrive.move(0);

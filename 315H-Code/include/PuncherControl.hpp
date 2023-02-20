@@ -2,10 +2,13 @@
 #define PUNCHER_CONTROL_HPP
 
 extern int phase;
+extern int targetPosition;
+
 void prime(int desPhase);
 void prime();
 void fire();
 void runPunchTask();
+void momentumShot(int speed);
 
 extern bool shootBtn;
 extern bool farPrimeBtn;

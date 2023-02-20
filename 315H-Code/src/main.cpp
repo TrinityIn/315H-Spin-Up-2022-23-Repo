@@ -32,7 +32,7 @@ void initialize() {
 	//do NOT initialize LCD here, it will prevent GUI from displaying auton tabs
 	//pros::lcd::initialize();
 	//pros::lcd::set_text(1, "Hello PROS User!");
-	puncher.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+	//puncher.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 	init_sensors();
 	initializeGUI();
 
@@ -98,14 +98,14 @@ void autonomous() {
 		case 2:
 		nearSideRed9();
 		break;
-		case 3:             
-		farSideRed5();
+		case 3:  
+		farRollerRed();           
 		break;
 		case 4:
 		spinRollerRed();
 		break;
 		case 5:
-		farRollerRed();
+		farSideRed5();
 		break;
 		case 6:
 		//getDoubleNeutralQualRedR(drivebase);

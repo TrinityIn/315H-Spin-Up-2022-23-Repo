@@ -49,8 +49,8 @@ const char *labelText[] =
 {
   "FILLER TEXT",
   // red side autons
-  "Solo WP", "near Roll", "far shoot", "",
-	"far roll", "", "", "",
+  "Solo WP", "near shoot", "far roll", "",
+	"far shoot", "", "", "",
   "", "", "", "",
   // blue side autons
   "Solo WP", "near Roll", "far shoot", "",

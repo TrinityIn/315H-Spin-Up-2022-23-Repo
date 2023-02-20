@@ -2,6 +2,11 @@
 #include "pros/misc.h"
 
 #define NUM_PHASE 3
+#define HOLD_POWER 0
+
+//global position indicator variables
+int phase = 0; //0 is nothing, 1 is near goal, 2 is outside barrier, 3 is halfcourt/max
+int targetPosition = -1;
 
 //virtual buttons
 bool shootBtn = false;
@@ -11,19 +16,18 @@ bool twoDiscBtn = false;
 //setup variables
 bool shootBtnPressed = false;
 bool phaseBtn = false;
-int phase = 0; //0 is nothing, 1 is near goal, 2 is outside barrier, 3 is halfcourt/max
 bool startPunchTask = true;
 bool primed = true;
 //bool down = cataPrime.get_value();
 
-void prime() {
+void phasePrime() {
     int target = 0;
     switch(phase) {
         case 1:
-            target = 4000;
+            target = 4050;
             break;
         case 2:
-            target = 4300;
+            target = 4200;
             break;
         case 3:         
             target = 6500;
@@ -43,21 +47,32 @@ void prime() {
     }
     //catapult.move(-50);
     //pros::delay(50);
-    puncher.move(3);
+    puncher.move(HOLD_POWER);
     return;
 }
-void prime(int desPhase) {
-    if (desPhase > 0 && desPhase <= NUM_PHASE) 
-        phase = desPhase;
-    else 
-        phase = 1;
-
-    prime();
+void prime(int targetPosition) {
+    double prevPosition = puncher.get_position();
+    while (puncher.get_position() < targetPosition && !(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) && !shootBtn) {
+        puncher.move_voltage(12000);
+        //down = cataPrime.get_value();
+        double prevPosition = puncher.get_position();
+        pros::delay(10);
+        //pros::lcd::print(0, "%.3f", fabs(puncher.get_position() - prevPosition));
+        // if (fabs(puncher.get_position() - prevPosition) < 0.01) {
+        //     break;
+        // }
+        
+    }
+    targetPosition = -1;
+    //catapult.move(-50);
+    //pros::delay(50);
+    puncher.move(HOLD_POWER);
+    return;
 }
 
 void fire() {
     puncher.move(0);
-    roller.move(0);
+    //roller.move(0);
     puncherRelease.set_value(true);
     //catapult.move(30);
     pros::delay(250);
@@ -75,18 +90,18 @@ void operatePuncher(void*) {
             fire();
             puncher.tare_position();
             phase = 1;
-            prime();
+            phasePrime();
         }
         // else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
         //     puncher.move(127);
         // }
         else if (!shootBtnPressed) {
-            puncher.move(5);
+            puncher.move(HOLD_POWER);
         }
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && !phaseBtn) {
             phaseBtn = true;
             phase = std::min(phase + 1, NUM_PHASE);
-            prime();
+            phasePrime();
         }
         else if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
             phaseBtn = false;
@@ -98,20 +113,37 @@ void operatePuncher(void*) {
         if (shootBtn) {
             fire();
             phase = 1;
+            puncher.tare_position();
             shootBtn = false;
-            prime();
+            phasePrime();
         }
         if (farPrimeBtn) {
-            prime(NUM_PHASE);
+            phase = 3;
+            phasePrime();
             farPrimeBtn = false;
         }
         if (twoDiscBtn) {
-            prime(2);
+            phase = 2;
+            phasePrime();
             twoDiscBtn = false;
+        }
+        if (targetPosition > 0) {
+            prime(targetPosition);
+            targetPosition = -1;
         }
         
         pros::delay(10);
     }
+}
+
+void momentumShot(int speed) {
+    leftDrive.move(speed);
+    rightDrive.move(speed);
+    pros::delay(20);
+    shootBtn = true;
+    pros::delay(200);
+    leftDrive.move(0);
+    rightDrive.move(0);
 }
 
 void runPunchTask() {
