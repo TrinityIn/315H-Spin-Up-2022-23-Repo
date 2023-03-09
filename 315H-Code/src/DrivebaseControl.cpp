@@ -32,7 +32,7 @@ double Drivebase::getAverageEncoderValue() {
 void Drivebase::driveDistance(bool forward, int distance, int degrees, int minSpeed){
     
     //constants
-    double turnP = 0.4;
+    double turnP = 0.6;
     
     double encoderDistance = distance * encoderPerInch/(gearRatio);
     double rotationalError = 0;
@@ -45,7 +45,7 @@ void Drivebase::driveDistance(bool forward, int distance, int degrees, int minSp
         while(getAverageEncoderValue() < encoderDistance && !teleop) {
             pros::lcd::print(0, "Encoder values: %d", getAverageEncoderValue());
             rotationalError = imu.getValue() - (degrees * 10);
-            leftDrive.move(fmax(minSpeed, minSpeed - rotationalError * turnP));
+            leftDrive.move(1.05 * fmax(minSpeed, minSpeed - rotationalError * turnP));
             rightDrive.move(fmax(minSpeed, minSpeed + rotationalError * turnP));
         }
     }
@@ -53,7 +53,7 @@ void Drivebase::driveDistance(bool forward, int distance, int degrees, int minSp
         while(getAverageEncoderValue() > (encoderDistance * -1) && !teleop) {
             pros::lcd::print(0, "Encoder values: %d", getAverageEncoderValue());
             rotationalError = imu.getValue() - (degrees * 10);
-            leftDrive.move(fmin(-minSpeed, -minSpeed - rotationalError * turnP));
+            leftDrive.move(1.05 * fmin(-minSpeed, -minSpeed - rotationalError * turnP));
             rightDrive.move(fmin(-minSpeed, -minSpeed + rotationalError * turnP));
         }
     }
@@ -102,7 +102,7 @@ void Drivebase::turnPID(int desiredTurnValue, int speed) {
     // settings
     double kP = 0.4; //0.4
     double kI = 0.005; //0.0005;  
-    double kD = 0.9; //0.85; 
+    double kD = 0.85; //0.85; 
 
     // set desired value to parameter 
     desiredTurnValue *= 10;

@@ -21,7 +21,7 @@ pros::Motor roller(10, pros::E_MOTOR_GEARSET_06);
 pros::Distance frontDistance(12);
 pros::Distance backDistance(20);
 pros::Gps gps(14);
-InertialSensor imu(3, 91.00/90.0);
+InertialSensor imu(3, 91.56/90.0);
 //pros::IMU imu(4);
 //pros::ADIDigitalIn cataPrime('');
 

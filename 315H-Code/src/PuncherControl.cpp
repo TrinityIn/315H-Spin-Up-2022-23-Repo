@@ -81,7 +81,7 @@ void fire() {
     pros::delay(50);
     puncherRelease.set_value(true);
     //catapult.move(30);
-    pros::delay(150);
+    pros::delay(250);
     puncherRelease.set_value(false);
     //pros::lcd::print(0, "fire");    
     pros::delay(10);
