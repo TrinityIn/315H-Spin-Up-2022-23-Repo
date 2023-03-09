@@ -2,6 +2,7 @@
 #define _ROBOTCONFIG_HPP_
 
 //motors
+#include "pros/distance.hpp"
 extern pros::Motor rightBack;
 extern pros::Motor rightTop;
 extern pros::Motor rightBottom;
@@ -18,12 +19,9 @@ extern pros::Motor roller;
 //sensors
 extern pros::Optical optRoller;
 extern InertialSensor imu;
-extern VisionSensor liftVision;
-extern DistanceSensor liftDistance;
-extern VisionSensor tilterVision;
-extern DistanceSensor tilterDistance;
-extern DistanceSensor distanceBack;
-extern DistanceSensor distanceFront;
+extern pros::Distance frontDistance;
+extern pros::Distance backDistance;
+extern pros::Gps gps;
 
 extern pros::ADIDigitalIn cataPrime;
 

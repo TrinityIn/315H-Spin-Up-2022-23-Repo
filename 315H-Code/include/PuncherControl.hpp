@@ -3,6 +3,7 @@
 
 extern int phase;
 extern int targetPosition;
+extern int tuningDistance;
 
 void prime(int desPhase);
 void prime();

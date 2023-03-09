@@ -96,10 +96,6 @@ class Imu {
 	 * Get the Inertial Sensor's heading relative to the initial direction of its
 	 * x-axis
 	 *
-	 * This value is bounded by [0,360). Clockwise rotations are represented with
-	 * positive degree values, while counterclockwise rotations are represented with
-	 * negative ones.
-	 *
 	 * This function uses the following values of errno when an error state is
 	 * reached:
 	 * ENXIO - The given value is not within the range of V5 ports (1-21).
@@ -114,7 +110,9 @@ class Imu {
 	virtual double get_heading() const;
 	/**
 	 * Get a quaternion representing the Inertial Sensor's orientation
-	 *
+	 * This value is bounded by [0,360). Clockwise rotations are represented with
+	 * positive degree values, while counterclockwise rotations are represented with
+	 * negative ones.
 	 * This function uses the following values of errno when an error state is
 	 * reached:
 	 * ENXIO - The given value is not within the range of V5 ports (1-21).

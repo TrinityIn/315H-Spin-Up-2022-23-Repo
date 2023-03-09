@@ -11,7 +11,18 @@ class Drivebase {
         double getAverageEncoderValue();  
         
         void turnPID(int desiredTurnValue, int speed);
+        void offsetTurnPID(int desiredTurnValue, int speed);
         void driveDistance(bool forward, int distance, int degrees, int minSpeed);
+        void driveToWall(bool forward, int distanceFromWall, int degrees, int minSpeed);
+
+
+        void gpsTurnToXY(double targetX, double targetY, bool offset);
+        void gpsMoveToXY(double targetX, double targetY, int power, bool offset);
+        void getPosition();
+
+        pros::c::gps_status_s_t status;
+        double rawx,rawy,tempX,switchx,switchy;
+        double rawgpsHeading, offgpsHeading;
 
         void calculatePower();
         void goForTime(int speed, int msec);

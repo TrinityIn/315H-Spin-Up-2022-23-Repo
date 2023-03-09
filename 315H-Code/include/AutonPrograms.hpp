@@ -16,5 +16,5 @@ void spinRollerBlue();
 void farRollerRed();
 void farRollerBlue();
 
-void autonSkills();
+void autonSkills(bool offset);
 #endif

@@ -1,5 +1,7 @@
+#include "RollerControl.hpp"
 #include "main.h"
 #include "pros/misc.h"
+#include "pros/motors.h"
 
 #define NUM_PHASE 3
 #define HOLD_POWER 0
@@ -7,6 +9,7 @@
 //global position indicator variables
 int phase = 0; //0 is nothing, 1 is near goal, 2 is outside barrier, 3 is halfcourt/max
 int targetPosition = -1;
+int tuningDistance = 0;
 
 //virtual buttons
 bool shootBtn = false;
@@ -17,6 +20,8 @@ bool twoDiscBtn = false;
 bool shootBtnPressed = false;
 bool phaseBtn = false;
 bool startPunchTask = true;
+bool tuningUpBtnPressed = false;
+bool tuningDownBtnPressed = false;
 bool primed = true;
 //bool down = cataPrime.get_value();
 
@@ -24,10 +29,10 @@ void phasePrime() {
     int target = 0;
     switch(phase) {
         case 1:
-            target = 4050;
+            target = 4050 + tuningDistance;
             break;
         case 2:
-            target = 4200;
+            target = 4500 + tuningDistance;
             break;
         case 3:         
             target = 6500;
@@ -72,10 +77,11 @@ void prime(int targetPosition) {
 
 void fire() {
     puncher.move(0);
-    //roller.move(0);
+    stopRollerBtn = true;
+    pros::delay(50);
     puncherRelease.set_value(true);
     //catapult.move(30);
-    pros::delay(250);
+    pros::delay(150);
     puncherRelease.set_value(false);
     //pros::lcd::print(0, "fire");    
     pros::delay(10);
@@ -98,6 +104,7 @@ void operatePuncher(void*) {
         else if (!shootBtnPressed) {
             puncher.move(HOLD_POWER);
         }
+
         if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2) && !phaseBtn) {
             phaseBtn = true;
             phase = std::min(phase + 1, NUM_PHASE);
@@ -106,6 +113,24 @@ void operatePuncher(void*) {
         else if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
             phaseBtn = false;
         }
+
+        //manual tuning functions
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP) && !tuningUpBtnPressed) {
+            tuningUpBtnPressed = true;
+            tuningDistance += 50;
+
+        }
+        else if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
+            tuningUpBtnPressed = false;
+
+        if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN) && !tuningDownBtnPressed) {
+            tuningDownBtnPressed = true;
+            tuningDistance -= 50;
+
+        }
+        else if (!master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN))
+            tuningDownBtnPressed = false;
+
         shootBtnPressed = false;
 
 
@@ -139,7 +164,7 @@ void operatePuncher(void*) {
 void momentumShot(int speed) {
     leftDrive.move(speed);
     rightDrive.move(speed);
-    pros::delay(20);
+    pros::delay(100);
     shootBtn = true;
     pros::delay(200);
     leftDrive.move(0);
@@ -149,6 +174,7 @@ void momentumShot(int speed) {
 void runPunchTask() {
     //shootBtn = false;
     if (startPunchTask) {
+        puncher.tare_position();
         pros::Task runPuncher(operatePuncher);
         startPunchTask = false;
     }

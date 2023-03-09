@@ -62,15 +62,47 @@ void Drivebase::driveDistance(bool forward, int distance, int degrees, int minSp
 
 }
 
+void Drivebase::driveToWall(bool forward, int distanceFromWall, int degrees, int minSpeed){
+    
+    //constants
+    double turnP = 0.4;
+    
+    double distanceError = frontDistance.get() - distanceFromWall;
+    double rotationalError = 0;
+    
+    resetEncoders();
+    pros::lcd::clear();
+
+    if (forward) {
+        while(frontDistance.get() > distanceFromWall && !teleop) {
+            pros::lcd::print(0, "Distance from wall: %d", frontDistance.get());
+            rotationalError = imu.getValue() - (degrees * 10);
+            leftDrive.move(fmax(minSpeed, minSpeed - rotationalError * turnP));
+            rightDrive.move(fmax(minSpeed, minSpeed + rotationalError * turnP));
+        }
+    }
+    else {
+        while(backDistance.get() > distanceFromWall && !teleop) {
+            pros::lcd::print(0, "Distance from wall (back): %d", backDistance.get());
+            rotationalError = imu.getValue() - (degrees * 10);
+            leftDrive.move(fmin(-minSpeed, -minSpeed - rotationalError * turnP));
+            rightDrive.move(fmin(-minSpeed, -minSpeed + rotationalError * turnP));
+        }
+    }
+    leftDrive.move(0);
+    rightDrive.move(0);
+
+}
+
 void Drivebase::turnPID(int desiredTurnValue, int speed) {
     //imu.reset();
     imu.set0();
-    imu.tare_heading();
+    //imu.tare_heading();
     
     // settings
-    double kP = 0.4;
-    double kI = 0.00005;  
-    double kD = 0.85; //formerly 0.75
+    double kP = 0.4; //0.4
+    double kI = 0.005; //0.0005;  
+    double kD = 0.9; //0.85; 
 
     // set desired value to parameter 
     desiredTurnValue *= 10;
@@ -91,6 +123,7 @@ void Drivebase::turnPID(int desiredTurnValue, int speed) {
     int time = 0;// timer for 300 ms
     int timeTracker = 0;
 
+    int maxTimer = pros::millis();
     do{
         //get positions of both motor group
         currentHeading = imu.getValue();
@@ -106,8 +139,9 @@ void Drivebase::turnPID(int desiredTurnValue, int speed) {
         //Derivative
         derivative = error - prevError;
 
-        //Integral
-        totalError += error;
+        //Integral: only add to totalError if error is less than 10 degrees off desired value
+        if (fabs(error) < 100) 
+            totalError += error;
 
         //PD controller
         turnMotorPower = fmin(abs((int) ((error * kP) + (derivative * kD) + (totalError * kI))), speed);
@@ -122,11 +156,22 @@ void Drivebase::turnPID(int desiredTurnValue, int speed) {
         prevError = error;
         pros::delay(10);
 
-        if (fabs(error) < 7 && timeTracker == 0) {
-            time = pros::millis(); 
-            timeTracker = 1;
+        if (fabs(error) < 7 && fabs(derivative) < 0.5) {
+            timeTracker++;
         }
-        if(pros::millis() - time >= 300 && timeTracker == 1) {
+        else {
+            timeTracker = 0;
+        }
+
+        // if (fabs(error) < 7 && timeTracker == 0) {
+        //     time = pros::millis(); 
+        //     timeTracker = 1;
+        // }
+        if(pros::millis() - maxTimer > 2000) {
+            sentinel = 1;
+            pros::lcd::print(6, "sentinel: max time exceeded (>2000)");
+        }
+        if(timeTracker == 30) {
             sentinel = 1;
             pros::lcd::print(6,"sentinel: %d", sentinel);
         }
@@ -140,7 +185,182 @@ void Drivebase::turnPID(int desiredTurnValue, int speed) {
 
     leftDrive.move(0);
     rightDrive.move(0);
+    return;
 }
+
+void Drivebase::offsetTurnPID(int desiredTurnValue, int speed) {
+    
+    // settings
+    double kP = 0.4; //0.4
+    double kI = 0.005; //0.0005;  
+    double kD = 0.8; //0.85; 
+
+    // set desired value to parameter 
+    desiredTurnValue *= 10;
+    double margin = fabs((desiredTurnValue - imu.getValue())/4);
+    //desiredTurnValue -= imu.getValue();
+    
+    // value of the current heading
+    double currentHeading;
+    // contains PD output
+    double turnMotorPower;
+
+    double error; // sensorValue - desiredValue : positional value, dx
+    double prevError = 0; // position 20ms ago
+    double totalError = 0; // totalError = totalError + error
+    double derivative; //error  - prevError : Speed
+    pros::lcd::print(2,"%0.2f", imu.getValue());
+
+    //int dugcount=0;
+    int sentinel = 0;
+    int time = 0;// timer for 300 ms
+    int timeTracker = 0;
+
+    int maxTimer = pros::millis();
+    do{
+        //get positions of both motor group
+        currentHeading = imu.getValue();
+        //dugcount+=1;
+
+        pros::lcd::clear();
+        //pros::lcd::print(1,"%d", dugcount);
+        
+
+        //Proportional
+        error = desiredTurnValue - currentHeading;
+
+        //Derivative
+        derivative = error - prevError;
+
+        //Integral: only add to totalError if error is less than 10 degrees off desired value
+        if (fabs(error) < 100) 
+            totalError += error;
+
+        //PD controller
+        turnMotorPower = fmin(abs((int) ((error * kP) + (derivative * kD) + (totalError * kI))), speed);
+        /*if(error < 0) {
+            turnMotorPower *= -1;
+        }*/
+        //pros::lcd::print(3, "Motor Power: %d", turnMotorPower);
+
+        leftDrive.move(sgn(error) * turnMotorPower);
+        rightDrive.move(-sgn(error) * turnMotorPower);
+
+        prevError = error;
+        pros::delay(10);
+
+        if (fabs(error) < margin && fabs(derivative) < 0.5) {
+            timeTracker++;
+        }
+        else {
+            timeTracker = 0;
+        }
+
+        // if (fabs(error) < 7 && timeTracker == 0) {
+        //     time = pros::millis(); 
+        //     timeTracker = 1;
+        // }
+        if(pros::millis() - maxTimer > 2000) {
+            sentinel = 1;
+            pros::lcd::print(6, "sentinel: max time exceeded (>2000)");
+        }
+        if(timeTracker == 30) {
+            sentinel = 1;
+            pros::lcd::print(6,"sentinel: %d", sentinel);
+        }
+
+        pros::lcd::print(3,"current heading: %.2f", currentHeading);
+        pros::lcd::print(4,"imu value: %0.2f", imu.getValue());
+        pros::lcd::print(5,"error/10%0.2f", error/10);
+        pros::lcd::print(6,"sentinel: %d", sentinel);
+
+    } while(sentinel == 0 && !teleop); //fabs(error) > 5
+
+    leftDrive.move(0);
+    rightDrive.move(0);
+    return;
+}
+
+
+void Drivebase::gpsTurnToXY(double targetX, double targetY, bool offset)
+{
+  double targetHeading, turnC, turnCC;
+  getPosition();
+  //Offset Calculations based on if offset or not
+  if(offset)
+  {
+    targetHeading = atan2(targetX - switchx, targetY - switchy) * 180 / M_PI;
+    if(targetHeading < 0)
+    {
+      targetHeading = 360 - fabs(targetHeading);
+    }
+    turnC = targetHeading - offgpsHeading;
+    turnCC = turnC-360;
+  }
+  //Non-offset calculations
+  else
+  {
+    targetHeading = atan2(targetX - rawx, targetY - rawy) * 180 / M_PI;
+    targetHeading = 360 - fabs(targetHeading);
+    turnC = targetHeading - rawgpsHeading;
+    turnCC = turnC-360;
+  }
+  //Stuff outside of condition - non dependent on offset
+  if(fabs(turnC) >= fabs(turnCC))
+  {
+    turnPID(turnC - 360, 90);
+  }
+  else
+  {
+    turnPID(turnC, 90);
+  }
+}
+
+void Drivebase::gpsMoveToXY(double targetX, double targetY, int power, bool offset)
+{
+  double errorDistance;
+  getPosition();
+  gpsTurnToXY(targetX, targetY, offset);
+  getPosition();
+  if(offset)
+  {
+    errorDistance = sqrt(pow(targetX - switchx, 2) + pow(switchy - rawy, 2));
+  }
+  else
+  {
+    errorDistance = sqrt(pow(targetX - rawx, 2) + pow(targetY - rawy, 2));
+  }
+  double targetHeading = atan2(targetX - switchx, targetY - switchy) * 180 / M_PI;
+  //Convert from centimeters back into inches
+  errorDistance /= 2.54;
+  driveDistance(true, errorDistance, targetHeading, power);
+}
+
+void Drivebase::getPosition()
+{
+  // will get GPS reading, and stored in struct.
+  //status.X and status.Y will report out coordiante in (x,y), unit is meter.
+  // the range is [-1.8, 1.8]
+  // raw x and y values are in centimeters not inches
+  rawgpsHeading = gps.get_heading();
+  offgpsHeading = rawgpsHeading + 90.00;
+  offgpsHeading = fmod(offgpsHeading, 360.00);
+  status = gps.get_status();
+  rawx = status.x * 100;
+  rawy = status.y * 100;
+  switchx = -rawx;
+  tempX = switchx;
+  switchx = rawy;
+  switchy = tempX;
+  pros::lcd::print(3, "Offset X Position: %f", switchx);
+  pros::lcd::print(4, "Offset Y Position: %f", switchy);
+  pros::lcd::print(1, "Raw X Position: %f", rawx);
+  pros::lcd::print(2, "Raw Y Position: %f", rawy);
+  pros::lcd::print(6, "Raw Gps Heading: %f", rawgpsHeading);
+  pros::lcd::print(5, "Offset Gps Heading: %f", offgpsHeading);
+}
+
+
 
 void Drivebase::calculatePower() {
     //get desired speed
@@ -160,7 +380,7 @@ void Drivebase::calculatePower() {
     pros::lcd::clear();
     pros::lcd::print(0, "lVoltage: %d", lVoltage);
     pros::lcd::print(1, "rVoltage: %d", rVoltage);
-    pros::lcd::print(5, "optical: %0.2f", optRoller.get_hue());
+    pros::lcd::print(5, "rollerPos: %0.2f", roller.get_position());
 
     previousRPower = slewControl(motorArray[0], rVoltage, previousRPower, SLEW_RATE);
     previousLPower = slewControl(motorArray[1], lVoltage, previousLPower, SLEW_RATE);

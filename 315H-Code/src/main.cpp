@@ -1,7 +1,11 @@
 #include "main.h"
+#include "AutonPrograms.hpp"
 #include "pros/llemu.h"
 #include "pros/llemu.hpp"
 #include "pros/motors.h"
+
+#define o
+#define OFFSET true
 
 Drivebase drivebase(4.0/6, 35.16/*replace*/);
 bool teleop;
@@ -34,10 +38,10 @@ void initialize() {
 	//pros::lcd::set_text(1, "Hello PROS User!");
 	//puncher.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 	init_sensors();
-	initializeGUI();
+	//initializeGUI();
 
 
-	pros::lcd::register_btn1_cb(on_center_button);
+	//pros::lcd::register_btn1_cb(on_center_button);
 }
 
 
@@ -72,19 +76,13 @@ void competition_initialize() {}
  */ 
 void autonomous() {
 	
-	//farRollerBlue();
-	//soloWinPointRed();
-	
-	//soloWinPointHalfBlue();
-	//spinRollerRed();
-	//spinRollerBlue();
-	//spinRollerBlue();
-
-	//soloWinPointBlue();
-	//farRollerBlue();
-	//pros::lcd::initialize();
-	//pros::lcd::print(2, "Auton selected: %d", autonSelected);
-	
+	#ifdef o
+		//drivebase.gpsTurnToXY(0, 0, OFFSET);
+		autonSkills(OFFSET);
+		//drivebase.turnPID(90, 70);
+		//nearSideRed9();
+	#endif
+	#ifndef o
 	switch (autonSelected)
   	{
 		//ORDER:
@@ -162,7 +160,7 @@ void autonomous() {
 		// other programs
 		case 1+NUM_SELECTION*2:
 		// the skills program
-		autonSkills();
+		autonSkills(OFFSET);
 		break;
 		case 2+NUM_SELECTION*2:
 		// program for debuging turning
@@ -181,6 +179,7 @@ void autonomous() {
 		default:
 		break;
   	}
+	#endif
 }
 
 /**
