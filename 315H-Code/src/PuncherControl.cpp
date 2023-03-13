@@ -11,6 +11,11 @@ int phase = 0; //0 is nothing, 1 is near goal, 2 is outside barrier, 3 is halfco
 int targetPosition = -1;
 int tuningDistance = 0;
 
+int pitch = 0;
+int roll = 0;
+int yaw = 0;
+int rotation = 0;
+
 //virtual buttons
 bool shootBtn = false;
 bool farPrimeBtn = false;
@@ -78,13 +83,27 @@ void prime(int targetPosition) {
 void fire() {
     puncher.move(0);
     stopRollerBtn = true;
-    pros::delay(50);
+    pros::delay(25);
+    
+    //"freezing" imu values
+    pitch = imu.get_pitch();
+    roll = imu.get_roll();
+    yaw = imu.get_yaw();
+    rotation = imu.get_rotation();
+
+
+    pros::delay(25);
     puncherRelease.set_value(true);
-    //catapult.move(30);
-    pros::delay(250);
+    pros::delay(200);
     puncherRelease.set_value(false);
     //pros::lcd::print(0, "fire");    
     pros::delay(10);
+
+    //resetting imu values to before the shooting
+    imu.set_pitch(pitch);
+    imu.set_roll(roll);
+    imu.set_yaw(yaw);
+    imu.set_rotation(rotation);
 
 }
 

@@ -1,5 +1,3 @@
-#include "PuncherControl.hpp"
-#include "RollerControl.hpp"
 #include "main.h"
 #include "pros/llemu.hpp"
 
@@ -11,13 +9,12 @@ const int CUTOFF_TIME = 11200;
  * @brief 
  * Red side autons
  */
-void nearSideRed9() {
+void nearSide8() {
     int testTimer = pros::millis();
     runPunchTask();
     runRollerTask();
-    while (!teleop) {
-        
 
+    while (!teleop) {
         //fire preload discs
         //drivebase.driveDistance(true, 3, -2, 45);
         //farPrimeBtn = true;
@@ -27,135 +24,182 @@ void nearSideRed9() {
         //spin roller
         targetPosition = 6500; 
         leftDrive.move(-80);
-        rightDrive.move(-40);
+        //rightDrive.move(-40);
         pros::delay(100);
-        spinRollerBtn = true;
+        outtakeBtn = true;
         pros::delay(800);
         stopRollerBtn = true;
-        drivebase.driveDistance(true, 6, -10, 50); 
+        drivebase.driveDistance(true, 3, -8, 50); 
 
         //delay
         //pros::delay(5000);
 
         //shoot preloads
-        drivebase.turnPID(-10, 50);
-        momentumShot(30);
+        pros::delay(400);
+        shootBtn = true;
+        pros::delay(400);
+        //drivebase.offsetTurnPID(-10, 50);
+        //momentumShot(30);
 
         //intake three discs
-        drivebase.turnPID(51, 90);
-        spinRollerBtn = true;
-        drivebase.driveDistance(true, 20, 51, 40); //knocking discs down
+        targetPosition = 5900;
+        drivebase.offsetTurnPID(45, 70);
+        //drivebase.driveDistance(true, 12, 60, 70);
+        outtakeBtn = true;
+        drivebase.driveDistance(true, 23, 45, 70); //knocking discs down
+        stopRollerBtn = true;
         pros::delay(250);
-        drivebase.driveDistance(true, 17, 51, 25); //intaking discs
+        intakeBtn = true;
+        drivebase.driveDistance(true, 17, 45, 25); //intaking discs
         pros::delay(800);
         stopRollerBtn = true;
         //drivebase.driveDistance(true, 7, 45, 60);
         
         //turn 90 degrees and shoot discs
-        drivebase.turnPID(-91, 90);
+        drivebase.offsetTurnPID(-40, 70);
         //drivebase.driveDistance(false, 3, -90, 30);
         pros::delay(100);
-        momentumShot(40);
+        shootBtn = true;
+        pros::delay(400);
+        targetPosition = 6500;
+        //momentumShot(40);
 
         //get second stack of discs
-        spinRollerBtn = true;
-        drivebase.turnPID(150, 90);
-        drivebase.driveDistance(true, 34, 180, 40);
-        drivebase.driveDistance(false, 34, 195, 50);
+        intakeBtn = true;
+        drivebase.offsetTurnPID(135, 70);
+        drivebase.driveDistance(true, 8, 140, 25);
+        drivebase.driveDistance(true, 20, 155, 20);
+        pros::delay(800);
+        drivebase.driveDistance(false, 20, 140, 60);
         stopRollerBtn = true;
 
         //shoot second stack of discs
-        drivebase.turnPID(180, 90);
-        momentumShot(90);
+        drivebase.offsetTurnPID(-37, 70);
+        shootBtn = true;
+        //momentumShot(90);
         return;       
     }   
 }
 
-void soloWinPointRed()
-{
-    runRollerTask();
+void soloWinPoint() {
+    int testTimer = pros::millis();
     runPunchTask();
+    runRollerTask();
 
     while (!teleop) {
-    
         //fire preload discs
-        momentumShot(50); //change if necessary to targetPosition
+        //drivebase.driveDistance(true, 3, -2, 45);
+        //farPrimeBtn = true;
+        //pros::delay(200);
+        //momentumShot(0); //change if necessary to targetPosition
 
         //spin roller
-        staticSpinRoller(60, 800);
+        targetPosition = 6500; 
+        leftDrive.move(-80);
+        //rightDrive.move(-40);
+        pros::delay(100);
+        outtakeBtn = true;
+        pros::delay(800);
+        stopRollerBtn = true;
+        drivebase.driveDistance(true, 3, -9, 50); 
+
+        //delay
+        //pros::delay(5000);
+
+        //shoot preloads
+        pros::delay(400);
+        shootBtn = true;
+        pros::delay(400);
+        //drivebase.offsetTurnPID(-10, 50);
+        //momentumShot(30);
 
         //intake three discs
-        targetPosition = 6500;
-        drivebase.turnPID(53, 90);
-        spinRollerBtn = true;
-        drivebase.driveDistance(true, 24, 53, 70); //knocking discs down
-        pros::delay(500);
-        drivebase.driveDistance(true, 14, 53, 25); //intaking discs
-        pros::delay(500);
+        targetPosition = 5800;
+        drivebase.offsetTurnPID(45, 70);
+        //drivebase.driveDistance(true, 12, 60, 70);
+        outtakeBtn = true;
+        drivebase.driveDistance(true, 23, 45, 70); //knocking discs down
         stopRollerBtn = true;
-        drivebase.driveDistance(true, 7, 45, 60);
+        pros::delay(250);
+        intakeBtn = true;
+        drivebase.driveDistance(true, 17, 45, 30); //intaking discs
+        pros::delay(600);
+        stopRollerBtn = true;
+        //drivebase.driveDistance(true, 7, 45, 60);
         
         //turn 90 degrees and shoot discs
-        drivebase.turnPID(-95, 90);
+        drivebase.offsetTurnPID(-40, 70);
         //drivebase.driveDistance(false, 3, -90, 30);
         pros::delay(100);
-        momentumShot(45);
+        shootBtn = true;
+        pros::delay(300);
+        targetPosition = 6500;
+        //momentumShot(40);
 
         //score end roller
         //drivebase.driveDistance(false, 3, -90, 50);
-        drivebase.turnPID(91, 90);
-        spinRollerBtn = true;
-        drivebase.driveDistance(true, 55, 91, 45);
-        drivebase.turnPID(-135, 90);
+        drivebase.offsetTurnPID(45, 70);
+        intakeBtn = true;
+        drivebase.driveDistance(true, 44, 45, 65);
+        drivebase.driveDistance(true, 16, 60, 80);
+        drivebase.offsetTurnPID(-82, 70);
         stopRollerBtn = true; 
+        pros::delay(300);
+        shootBtn = true;
+        pros::delay(200);
         //drivebase.driveDistance(false, 3, -135, 40);
         
         //spin roller
-        staticSpinRoller(60, 800);
-        drivebase.turnPID(5, 90);
+        drivebase.driveDistance(false, 3, -75, 70);
+        staticSpinRoller(-60, 800);
         momentumShot(70);
         return;
 
     }
 }
 
-void farSideRed5() {
+void farSide6() {
     runRollerTask();
     runPunchTask();
-    leftDrive.move(75);
-    rightDrive.move(75);
-    pros::delay(125);
+
+    //intake first disc
+    targetPosition = 6500;
+    intakeBtn = true;
+    drivebase.driveDistance(true, 17, 0, 55);
+    pros::delay(700);
 
     //score preload
-    momentumShot(50);
-    //farPrimeBtn = true;
-
-    //intake 3 discs (ram with outtake, then slowly intake)
-    
-    targetPosition = 6500;
-    drivebase.turnPID(-65, 80);
-    intakeBtn = true;
-    drivebase.driveDistance(true, 35, -65, 40);
-    pros::delay(1500);
     stopRollerBtn = true;
-    drivebase.turnPID(90, 60);
-    momentumShot(45);
+    pros::delay(400);
+    shootBtn = true;
+    pros::delay(300);
+    targetPosition = 5700;
 
-    // //turn and shoot
-    // drivebase.turnPID(90, 90);
-    // shootBtn = true;
+    //intake 3 discs
+    intakeBtn = true;
+    drivebase.driveDistance(true, 3, 0, 55);
+    drivebase.driveDistance(true, 3, 10, 40);
+    pros::delay(900);
+    drivebase.driveDistance(false, 9, 10, 60);
+    drivebase.offsetTurnPID(-60, 70);
+    drivebase.driveDistance(true, 28, -60, 45);
+    drivebase.offsetTurnPID(25, 60);
+    stopRollerBtn = true;
+    pros::delay(400);
+    shootBtn = true;
+    pros::delay(400);
 
     //score roller
     //drivebase.driveDistance(false, 6, 90, 50);
-    drivebase.turnPID(-90, 80);
-    drivebase.driveDistance(false, 47, -90, 60);
+    drivebase.offsetTurnPID(-70, 70);
+    drivebase.driveDistance(false, 48, -70, 80);
     //drivebase.turnPID(45, 90);
     //drivebase.driveDistance(false, 6, -45, 40);
     //spinRollerRed();
-    rightDrive.move(-40);
+    rightDrive.move(-80);
     //rightDrive.move(-50);
-    pros::delay(1000);
-    spinRollerBtn = true;
+    pros::delay(800);
+    outtakeBtn = true;
     pros::delay(900);
     stopRollerBtn = true;
     drivebase.goForTime(40, 150); 
@@ -227,7 +271,7 @@ void soloWinPointHalfBlue()
 }
 
 void soloWinPointBlue() {
-    soloWinPointRed();
+    soloWinPoint();
     // pros::lcd::initialize();
     // //drivebase.turnPID(45, 90);
     // leftDrive.move(-50);
@@ -310,7 +354,7 @@ void nearSideBlue9() {
     drivebase.goForTime(40, 300);   
 }
 
-void farSideBlue5() {
+void farSide8() {
     runRollerTask();
     runPunchTask();
 
@@ -410,8 +454,8 @@ void elimPrepBlue() {
 void autonSkills(bool offset) {
 	pros::lcd::initialize();
 
-    //runPunchTask();
-    //runRollerTask();
+    runPunchTask();
+    runRollerTask();
 
     //1: spin roller, wind up puncher slightly
     spinRollerBtn = 127;
@@ -446,45 +490,52 @@ void autonSkills(bool offset) {
     pros::delay(200);
     shootBtn = true;
     pros::delay(500);
+    // pros::delay(10000);
+    // pros::lcd::clear_line(3);
+    // pros::lcd::print(3, "Gyro: %f", imu.getValue());
+    // pros::lcd::print(4, "Uncorrected Gyro: %f", imu.get_rotation());
 
     //5: intake diagonal discs 
     targetPosition = 4500;
     intakeBtn = true;
-    drivebase.offsetTurnPID(145, 50);
-    drivebase.driveDistance(true, 20, 145, 50);
-    pros::delay(300);
-    drivebase.offsetTurnPID(45, 50);
-    drivebase.driveDistance(true, 26, 45, 55);
-
-    //print out gyro value on line 3
-    pros::lcd::clear_line(3);
-    pros::lcd::print(3, "Gyro: %f", imu.getValue());
+    drivebase.offsetTurnPID(145, 60);
+    drivebase.driveDistance(true, 20, 145, 70);
     
+    pros::delay(500);
+    // pros::lcd::clear_line(3);
+    // pros::lcd::print(3, "Gyro: %f", imu.getValue());
+    // pros::lcd::print(4, "Uncorrected Gyro: %f", imu.get_rotation());
+    // pros::delay(10000);
+    drivebase.offsetTurnPID(45, 70);
+    drivebase.driveDistance(true, 26, 45, 55);
+    //print out gyro value on line 3
+    // pros::lcd::clear_line(3);
+    // pros::lcd::print(3, "Gyro: %f", imu.getValue());
+    // pros::lcd::print(4, "Uncorrected Gyro: %f", imu.get_rotation());
+    //return;
     //stopRollerBtn = true;
 
     //6: turn and shoot
     //imu.reset();
     
-    drivebase.offsetTurnPID(-45, 50);
+    drivebase.offsetTurnPID(-47, 70);
     stopRollerBtn = true;
     pros::delay(300);
     shootBtn = true;
     pros::delay(500);
 
     //7: turn and intake 3 stacked discs
-    targetPosition = 4400;
+    targetPosition = 4500;
     drivebase.offsetTurnPID(45, 50);
-    intakeBtn = true;
-    drivebase.driveDistance(true, 22, 45, 55);
+    outtakeBtn = true;
+    drivebase.driveDistance(true, 24, 45, 55);
+    stopRollerBtn = true;
     pros::delay(300);
+    intakeBtn = true;
     drivebase.driveDistance(true, 18, 45, 25);
 
-    //print out gyro value on line 3
-    pros::lcd::clear_line(3);
-    pros::lcd::print(3, "Gyro: %f", imu.getValue());
-
     //8: score roller
-    drivebase.driveDistance(true, 8, 45, 50);
+    drivebase.driveDistance(true, 7, 45, 50);
     drivebase.offsetTurnPID(0, 70);
     spinRollerBtn = 60;
     drivebase.driveToWall(true, 150, 0, 50);
@@ -494,7 +545,7 @@ void autonSkills(bool offset) {
     //drivebase.goForTime(-40, 200);
     drivebase.driveDistance(false, 4, 0, 50);
     drivebase.offsetTurnPID(45, 70);
-    drivebase.driveDistance(false, 46, 45, 75);
+    drivebase.driveDistance(false, 44, 45, 75);
 
     //print out gyro value on line 3
     pros::lcd::clear_line(3);
@@ -502,15 +553,15 @@ void autonSkills(bool offset) {
 
     //9: turn and shoot
     stopRollerBtn = true;
-    drivebase.offsetTurnPID(-50, 70);
+    drivebase.offsetTurnPID(-55, 70);
     pros::delay(500);
     shootBtn = true;
     pros::delay(300);
 
     //10: align with barrier and intake 3 discs
     intakeBtn = true;
-    drivebase.offsetTurnPID(-10, 70);
-    drivebase.driveDistance(true, 24, -10, 25);
+    drivebase.offsetTurnPID(-15, 70);
+    drivebase.driveDistance(true, 24, -15, 25);
 
     //11: turn and shoot
     drivebase.driveToWall(true, 250, 0, 50);
@@ -521,11 +572,13 @@ void autonSkills(bool offset) {
     pros::delay(300);
 
     //12: turn, drive to rollers, and intake 3 discs
-    drivebase.offsetTurnPID(95, 70);
-    drivebase.driveDistance(true, 48, 95, 90);
-    intakeBtn = true;
-    drivebase.driveDistance(true, 5, 90, 65);
+    drivebase.offsetTurnPID(115, 70);
+    drivebase.driveDistance(true, 30, 120, 90);
+    outtakeBtn = true;
+    drivebase.driveDistance(true, 13, 90, 65);
+    stopRollerBtn = true;
     pros::delay(1000);
+    intakeBtn = true;
     drivebase.driveToWall(true, 150, 90, 25);
 
     //13: score roller
@@ -535,15 +588,95 @@ void autonSkills(bool offset) {
     pros::delay(800);
     stopRollerBtn = true;
     //drivebase.goForTime(-40, 200);
-    drivebase.driveDistance(false, 4, 90, 50);
-    //14: drive to goal and shoot
-    //15: get low barrier discs (effectively a repeat of steps 5-10)
-    //16: shoot low goal discs
-    //17: back up, turn/arcs, and intake 3 discs
-    //18: turn and shoot
-    //19: turn and intake 3 discs
-    //20: turn and shoot
-    //21: back up and turn, fire expansion
+    drivebase.driveDistance(false, 8, 90, 50);
+
+
+
+    // //14
+    // drivebase.offsetTurnPID(180, 90);
+    // //drivebase.gpsMoveToXY(-1.3, -1.3, 60, offset);
+    // drivebase.driveToWall(true, 1600, 180, 80);
+    // pros::delay(200);
+    // shootBtn = true;
+    // pros::delay(500);
+    // // pros::delay(10000);
+    // // pros::lcd::clear_line(3);
+    // // pros::lcd::print(3, "Gyro: %f", imu.getValue());
+    // // pros::lcd::print(4, "Uncorrected Gyro: %f", imu.get_rotation());
+
+    // //5: intake diagonal discs 
+    // targetPosition = 4600;
+    // intakeBtn = true;
+    // drivebase.offsetTurnPID(325, 60);
+    // drivebase.driveDistance(true, 20, 325, 70);
+    
+    // pros::delay(500);
+    // // pros::lcd::clear_line(3);
+    // // pros::lcd::print(3, "Gyro: %f", imu.getValue());
+    // // pros::lcd::print(4, "Uncorrected Gyro: %f", imu.get_rotation());
+    // // pros::delay(10000);
+    // drivebase.offsetTurnPID(225, 70);
+    // drivebase.driveDistance(true, 26, 225, 55);
+    // //print out gyro value on line 3
+    // // pros::lcd::clear_line(3);
+    // // pros::lcd::print(3, "Gyro: %f", imu.getValue());
+    // // pros::lcd::print(4, "Uncorrected Gyro: %f", imu.get_rotation());
+    // //return;
+    // //stopRollerBtn = true;
+
+    // //6: turn and shoot
+    // //imu.reset();
+    
+    // drivebase.offsetTurnPID(135, 70);
+    // stopRollerBtn = true;
+    // pros::delay(300);
+    // shootBtn = true;
+    // pros::delay(500);
+
+    // //7: turn and intake 3 stacked discs
+    // targetPosition = 4600;
+    // drivebase.offsetTurnPID(225, 50);
+    // outtakeBtn = true;
+    // drivebase.driveDistance(true, 24, 225, 55);
+    // stopRollerBtn = true;
+    // pros::delay(300);
+    // intakeBtn = true;
+    // drivebase.driveDistance(true, 18, 225, 25);
+    
+    // drivebase.driveDistance(false, 38, 225, 75);
+
+
+    // //9: turn and shoot
+    // stopRollerBtn = true;
+    // drivebase.offsetTurnPID(130, 70);
+    // pros::delay(500);
+    // shootBtn = true;
+    // pros::delay(300);
+
+    // //10: align with barrier and intake 3 discs
+    // intakeBtn = true;
+    // drivebase.offsetTurnPID(170, 70);
+    // drivebase.driveDistance(true, 24, 170, 25);
+
+    // //11: turn and shoot
+    // drivebase.driveToWall(true, 250, 180, 50);
+    // drivebase.offsetTurnPID(75, 70);
+    // stopRollerBtn = true;
+    // pros::delay(400);
+    // shootBtn = true;
+    // pros::delay(300);
+
+    // //14: drive to goal and shoot
+    // //15: get low barrier discs (effectively a repeat of steps 5-10)
+    // //16: shoot low goal discs
+    // //17: back up, turn/arcs, and intake 3 discs
+    // //18: turn and shoot
+    // //19: turn and intake 3 discs
+    // //20: turn and shoot
+    // //21: back up and turn, fire expansion
+    // drivebase.driveDistance(false, 36, 100, 80);
+    drivebase.offsetTurnPID(225, 70);
+    leftExpander.set_value(true);
 
     pros::delay(1000);
 

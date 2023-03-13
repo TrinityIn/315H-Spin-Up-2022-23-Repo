@@ -4,7 +4,7 @@
 #include "pros/llemu.hpp"
 #include "pros/motors.h"
 
-#define o
+//#define o
 #define OFFSET true
 
 Drivebase drivebase(4.0/6, 35.16/*replace*/);
@@ -38,7 +38,8 @@ void initialize() {
 	//pros::lcd::set_text(1, "Hello PROS User!");
 	//puncher.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 	init_sensors();
-	//initializeGUI();
+    pros::delay(1000);
+	initializeGUI();
 
 
 	//pros::lcd::register_btn1_cb(on_center_button);
@@ -77,10 +78,21 @@ void competition_initialize() {}
 void autonomous() {
 	
 	#ifdef o
-		//drivebase.gpsTurnToXY(0, 0, OFFSET);
-		autonSkills(OFFSET);
-		//drivebase.turnPID(90, 70);
-		//nearSideRed9();
+		pros::lcd::initialize();
+		// drivebase.offsetTurnPID(90, 70);
+		// pros::delay(10000);
+		// drivebase.offsetTurnPID(180, 70);
+		// pros::delay(10000);
+		// drivebase.offsetTurnPID(270, 70);
+		// pros::delay(10000);
+		// drivebase.offsetTurnPID(360, 70);
+		// pros::delay(10000);
+		// drivebase.gpsTurnToXY(0, 0, OFFSET);
+
+
+		//autonSkills(OFFSET);
+		//nearSide8();
+		farSide6();	
 	#endif
 	#ifndef o
 	switch (autonSelected)
@@ -91,10 +103,10 @@ void autonomous() {
 		//3. Enable comp controller in auton
 		// red side autons
 		case 1:
-		soloWinPointRed();
+		soloWinPoint();
 		break;
 		case 2:
-		nearSideRed9();
+		nearSide8();
 		break;
 		case 3:  
 		farRollerRed();           
@@ -103,7 +115,7 @@ void autonomous() {
 		spinRollerRed();
 		break;
 		case 5:
-		farSideRed5();
+		farSide6();
 		break;
 		case 6:
 		//getDoubleNeutralQualRedR(drivebase);
@@ -115,7 +127,7 @@ void autonomous() {
 		//swipeGoalRed(drivebase);
 		break;
 		case 9:
-		//rushNeutralLeftRed(drivebase);
+		farSide8();
 		break;
 		case 10:
 		//neutralLeftQualRed(drivebase);
@@ -131,7 +143,7 @@ void autonomous() {
 		nearSideBlue9();
 		break;
 		case 3+NUM_SELECTION:
-		farSideBlue5();
+		farSide8();
 		break;
 		case 4+NUM_SELECTION:
 		spinRollerBlue();

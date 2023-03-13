@@ -12,6 +12,7 @@ void spinRoller(int c);
 extern bool intakeBtn;
 extern bool stopRollerBtn;
 extern int spinRollerBtn;
+extern bool outtakeBtn;
 
 extern bool isRollerRunning;
 extern bool isRollerBtnPressed;

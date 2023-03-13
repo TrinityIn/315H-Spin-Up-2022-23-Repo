@@ -62,6 +62,7 @@ void staticSpinRoller(int rollerSpeed, int delayTime) {
 bool intakeBtn = false;
 bool stopRollerBtn = false;
 int spinRollerBtn = -1;
+bool outtakeBtn = false;
 
 bool isRollerRunning = false;
 bool isRollerBtnPressed = false;
@@ -143,6 +144,12 @@ void operateRoller(void*) {
       roller.move(spinRollerBtn);    
       isRollerRunning = true;
       spinRollerBtn = -1;
+    }
+    if (outtakeBtn) {
+      roller.move(-60);
+      isRollerRunning = true;
+      //outtaking = true;
+      outtakeBtn = false;
     }
 
     if (!isRollerRunning && !outtaking) {

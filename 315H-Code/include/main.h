@@ -39,7 +39,7 @@
 #include "BasicDrivebase.hpp"
 #include "RobotConfig.hpp"
 #include "AutonPrograms.hpp"
-//#include "DisplayUtility.hpp"
+#include "DisplayUtility.hpp"
 #include "PuncherControl.hpp"
 #include "DrivebaseControl.hpp"
 #include "ExpanderControl.hpp"

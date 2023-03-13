@@ -4,6 +4,7 @@
 #include "pros/rtos.hpp"
 
 #define SLEW_RATE 900
+#define AUTON_SLEW_RATE 4
 #define MAX_VOLTAGE 12000
 #define LEFT_Y pros::E_CONTROLLER_ANALOG_LEFT_Y
 #define RIGHT_X pros::E_CONTROLLER_ANALOG_RIGHT_X
@@ -45,7 +46,7 @@ void Drivebase::driveDistance(bool forward, int distance, int degrees, int minSp
         while(getAverageEncoderValue() < encoderDistance && !teleop) {
             pros::lcd::print(0, "Encoder values: %d", getAverageEncoderValue());
             rotationalError = imu.getValue() - (degrees * 10);
-            leftDrive.move(1.05 * fmax(minSpeed, minSpeed - rotationalError * turnP));
+            leftDrive.move(fmax(minSpeed, minSpeed - rotationalError * turnP));
             rightDrive.move(fmax(minSpeed, minSpeed + rotationalError * turnP));
         }
     }
@@ -65,7 +66,7 @@ void Drivebase::driveDistance(bool forward, int distance, int degrees, int minSp
 void Drivebase::driveToWall(bool forward, int distanceFromWall, int degrees, int minSpeed){
     
     //constants
-    double turnP = 0.4;
+    double turnP = 0.6;
     
     double distanceError = frontDistance.get() - distanceFromWall;
     double rotationalError = 0;
@@ -202,8 +203,11 @@ void Drivebase::offsetTurnPID(int desiredTurnValue, int speed) {
     
     // value of the current heading
     double currentHeading;
+
     // contains PD output
     double turnMotorPower;
+    int prevLPower = 0;
+    int prevRPower = 0;
 
     double error; // sensorValue - desiredValue : positional value, dx
     double prevError = 0; // position 20ms ago
@@ -243,8 +247,10 @@ void Drivebase::offsetTurnPID(int desiredTurnValue, int speed) {
         }*/
         //pros::lcd::print(3, "Motor Power: %d", turnMotorPower);
 
-        leftDrive.move(sgn(error) * turnMotorPower);
-        rightDrive.move(-sgn(error) * turnMotorPower);
+        prevLPower = slewControl(&leftDrive, sgn(error) * turnMotorPower * 12000/127, prevLPower, SLEW_RATE);
+        prevRPower = slewControl(&rightDrive, -sgn(error) * turnMotorPower * 12000/127, prevRPower, SLEW_RATE);
+        // leftDrive.move(sgn(error) * turnMotorPower);
+        // rightDrive.move(-sgn(error) * turnMotorPower);
 
         prevError = error;
         pros::delay(10);
@@ -269,9 +275,10 @@ void Drivebase::offsetTurnPID(int desiredTurnValue, int speed) {
             pros::lcd::print(6,"sentinel: %d", sentinel);
         }
 
+        pros::lcd::print(2, "uncorrected gyro: %0.2f", imu.get_rotation());
         pros::lcd::print(3,"current heading: %.2f", currentHeading);
         pros::lcd::print(4,"imu value: %0.2f", imu.getValue());
-        pros::lcd::print(5,"error/10%0.2f", error/10);
+        pros::lcd::print(5,"error/10: %0.2f", error/10);
         pros::lcd::print(6,"sentinel: %d", sentinel);
 
     } while(sentinel == 0 && !teleop); //fabs(error) > 5
